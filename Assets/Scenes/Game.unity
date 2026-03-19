@@ -1310,7 +1310,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1125048385
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1350,8 +1350,8 @@ MonoBehaviour:
   talkTarget: {fileID: 547357110}
   textBox: {fileID: 323696561}
   BGDim: {fileID: 112638429}
-  BGDimColor: {r: 0, g: 0, b: 0, a: 0}
-  AnimationTime: 1
+  DimIntensity: 190
+  AnimationTime: 0.2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

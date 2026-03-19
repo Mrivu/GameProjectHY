@@ -1,20 +1,25 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
 {
     public RectTransform mainCharacter;
     private Vector2 mainCharacterGoal;
+    private Vector2 mainCharacterStart;
 
     public RectTransform talkTarget;
     private Vector2 talkTargetGoal;
+    private Vector2 talkTargetStart;
 
     public RectTransform textBox;
     private Vector2 textBoxGoal;
+    private Vector2 textBoxStart;
 
     public Image BGDim;
+    public float DimIntensity = 190f;
     private Color TargetDim;
 
 
@@ -27,27 +32,44 @@ public class DialogueSystem : MonoBehaviour
         mainCharacterGoal = mainCharacter.anchoredPosition;
         talkTargetGoal = talkTarget.anchoredPosition;
         textBoxGoal = textBox.anchoredPosition;
+
+        mainCharacterStart = new Vector2(mainCharacterGoal.x - 300, mainCharacterGoal.y);
+        talkTargetStart = new Vector2(talkTargetGoal.x + 300, talkTargetGoal.y);
+        textBoxStart = new Vector2(textBoxGoal.x, textBoxGoal.y - 200);
     }
 
 
-    public void StartDialogueAnimation()
+    public void StartDialogueAnimation(bool fadeIn)
     {
-        mainCharacter.anchoredPosition = new Vector2(mainCharacterGoal.x - 300, mainCharacterGoal.y);
-        talkTarget.anchoredPosition = new Vector2(talkTargetGoal.x + 300, talkTargetGoal.y);
-        textBox.anchoredPosition = new Vector2(textBoxGoal.x, textBoxGoal.y - 200);
+        if (fadeIn)
+        {
+            mainCharacter.anchoredPosition = mainCharacterStart;
+            talkTarget.anchoredPosition = talkTargetStart;
+            textBox.anchoredPosition = textBoxStart;
+        }
+        else
+        {
+            mainCharacter.anchoredPosition = mainCharacterGoal;
+            talkTarget.anchoredPosition = talkTargetGoal;
+            textBox.anchoredPosition = textBoxGoal;   
+        }
+
         if (DialogueAnimation != null)
         {
-            StopCoroutine(FadeDialogue());
+            StopCoroutine(DialogueAnimation);
         }
-        DialogueAnimation = StartCoroutine(FadeDialogue());
+        DialogueAnimation = StartCoroutine(FadeDialogue(fadeIn));
     }
 
-    private IEnumerator FadeDialogue()
+    private IEnumerator FadeDialogue(bool fadeIn)
     {
-        // Exponential animation, not linear. Notice we start lerping from current position.
         float time = 0;
+
         Color start = BGDim.color;
-        start.a = 0f;
+        TargetDim = BGDim.color;
+
+        if (fadeIn) { start.a = 0f; TargetDim.a = DimIntensity / 255; }
+        else { start.a = DimIntensity / 255; TargetDim.a = 0f;}
         BGDim.color = start;
 
         while (time < AnimationTime)
@@ -56,27 +78,26 @@ public class DialogueSystem : MonoBehaviour
             float t = time / AnimationTime;
 
             Color c = BGDim.color;
-            c.a = Mathf.Lerp(c.a, TargetDim.a, t);
+            c.a = Mathf.Lerp(start.a, TargetDim.a, t);
             BGDim.color = c;
 
-            mainCharacter.anchoredPosition = Vector2.Lerp(mainCharacter.anchoredPosition, mainCharacterGoal, t);
-            talkTarget.anchoredPosition = Vector2.Lerp(talkTarget.anchoredPosition, talkTargetGoal, t);
-            textBox.anchoredPosition = Vector2.Lerp(textBox.anchoredPosition, textBoxGoal, t);
-
+            if (fadeIn)
+            {
+                mainCharacter.anchoredPosition = Vector2.Lerp(mainCharacterStart, mainCharacterGoal, t);
+                talkTarget.anchoredPosition = Vector2.Lerp(talkTargetStart, talkTargetGoal, t);
+                textBox.anchoredPosition = Vector2.Lerp(textBoxStart, textBoxGoal, t);
+            }
+            else
+            {
+                mainCharacter.anchoredPosition = Vector2.Lerp(mainCharacterGoal, mainCharacterStart, t);
+                talkTarget.anchoredPosition = Vector2.Lerp(talkTargetGoal, talkTargetStart, t);
+                textBox.anchoredPosition = Vector2.Lerp(textBoxGoal, textBoxStart, t);
+            }
             yield return null;
         }
         DialogueAnimation = null;
+
+        if (!fadeIn) { gameObject.SetActive(false); }
     }
 
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
