@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //TestDialogue();
+        Invoke(nameof(StartDialogue), 1f);
     }
 
     void TestDialogue()

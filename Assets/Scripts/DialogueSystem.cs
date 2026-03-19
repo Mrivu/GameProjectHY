@@ -1,4 +1,6 @@
 using System.Collections;
+using TMPro;
+using Unity.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -6,6 +8,7 @@ using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
 {
+    [Header("Animation")]
     public RectTransform mainCharacter;
     private Vector2 mainCharacterGoal;
     private Vector2 mainCharacterStart;
@@ -25,6 +28,13 @@ public class DialogueSystem : MonoBehaviour
 
     public float AnimationTime = 0.5f;
     private Coroutine DialogueAnimation;
+
+
+    [Header("Text")]
+    public TextMeshProUGUI textField;
+    public float scrollSpeed = 1.0f;
+    private Coroutine ScrollAnimation;
+
 
     private void Awake()
     {
@@ -98,6 +108,38 @@ public class DialogueSystem : MonoBehaviour
         DialogueAnimation = null;
 
         if (!fadeIn) { gameObject.SetActive(false); }
+        else { StartConversation(0); }
+    }
+    
+
+    void StartConversation(int conversationId)
+    {
+        int currentText = 0;
+        string textToDisplay = TextData.textData[currentText][currentText];
+
+        if (ScrollAnimation != null)
+        {
+            StopCoroutine(ScrollAnimation);
+        }
+        ScrollAnimation = StartCoroutine(ScrollText(textToDisplay));
+
     }
 
+    private IEnumerator ScrollText(string text)
+    {
+        float time = 0;
+        int textLen = text.Length;
+
+        while (time < scrollSpeed)
+        {
+            time += Time.deltaTime;
+            float t = time / scrollSpeed;
+
+            textField.text = text[0..(int)(textLen*t)];
+
+            yield return null;
+        }
+
+        ScrollAnimation = null;
+    }
 }
