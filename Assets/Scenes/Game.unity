@@ -1259,6 +1259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1092498377}
   - component: {fileID: 1092498378}
+  - component: {fileID: 1092498379}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1275,7 +1276,7 @@ Transform:
   m_GameObject: {fileID: 1092498376}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.50552, y: 0.20572, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1294,6 +1295,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   dialogueSystem: {fileID: 1125048386}
+--- !u!114 &1092498379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092498376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 923ec1a7d75a60842ba847360bca572f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputControls
+  advance:
+    m_Name: Advance
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 254ad52d-4058-4a4d-8e9c-4052e41e0c3d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &1125048384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,7 +1332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1125048385
 RectTransform:
   m_ObjectHideFlags: 0

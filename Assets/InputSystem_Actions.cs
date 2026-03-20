@@ -89,7 +89,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     ""name"": ""InputSystem_Actions"",
     ""maps"": [
         {
-            ""name"": ""New action map"",
+            ""name"": ""Controls"",
             ""id"": ""72258a25-919c-4144-a452-a1ccfbc08bd9"",
             ""actions"": [
                 {
@@ -180,14 +180,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         }
     ]
 }");
-        // New action map
-        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
-        m_Newactionmap_Advance = m_Newactionmap.FindAction("Advance", throwIfNotFound: true);
+        // Controls
+        m_Controls = asset.FindActionMap("Controls", throwIfNotFound: true);
+        m_Controls_Advance = m_Controls.FindAction("Advance", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
     {
-        UnityEngine.Debug.Assert(!m_Newactionmap.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Newactionmap.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Controls.enabled, "This will cause a leak and performance issues, InputSystem_Actions.Controls.Disable() has not been called.");
     }
 
     /// <summary>
@@ -260,29 +260,29 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // New action map
-    private readonly InputActionMap m_Newactionmap;
-    private List<INewactionmapActions> m_NewactionmapActionsCallbackInterfaces = new List<INewactionmapActions>();
-    private readonly InputAction m_Newactionmap_Advance;
+    // Controls
+    private readonly InputActionMap m_Controls;
+    private List<IControlsActions> m_ControlsActionsCallbackInterfaces = new List<IControlsActions>();
+    private readonly InputAction m_Controls_Advance;
     /// <summary>
-    /// Provides access to input actions defined in input action map "New action map".
+    /// Provides access to input actions defined in input action map "Controls".
     /// </summary>
-    public struct NewactionmapActions
+    public struct ControlsActions
     {
         private @InputSystem_Actions m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public NewactionmapActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
+        public ControlsActions(@InputSystem_Actions wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Newactionmap/Advance".
+        /// Provides access to the underlying input action "Controls/Advance".
         /// </summary>
-        public InputAction @Advance => m_Wrapper.m_Newactionmap_Advance;
+        public InputAction @Advance => m_Wrapper.m_Controls_Advance;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
+        public InputActionMap Get() { return m_Wrapper.m_Controls; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -290,9 +290,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="NewactionmapActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="ControlsActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(ControlsActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -300,11 +300,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="NewactionmapActions" />
-        public void AddCallbacks(INewactionmapActions instance)
+        /// <seealso cref="ControlsActions" />
+        public void AddCallbacks(IControlsActions instance)
         {
-            if (instance == null || m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_ControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ControlsActionsCallbackInterfaces.Add(instance);
             @Advance.started += instance.OnAdvance;
             @Advance.performed += instance.OnAdvance;
             @Advance.canceled += instance.OnAdvance;
@@ -316,8 +316,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="NewactionmapActions" />
-        private void UnregisterCallbacks(INewactionmapActions instance)
+        /// <seealso cref="ControlsActions" />
+        private void UnregisterCallbacks(IControlsActions instance)
         {
             @Advance.started -= instance.OnAdvance;
             @Advance.performed -= instance.OnAdvance;
@@ -325,12 +325,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="NewactionmapActions.UnregisterCallbacks(INewactionmapActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="ControlsActions.UnregisterCallbacks(IControlsActions)" />.
         /// </summary>
-        /// <seealso cref="NewactionmapActions.UnregisterCallbacks(INewactionmapActions)" />
-        public void RemoveCallbacks(INewactionmapActions instance)
+        /// <seealso cref="ControlsActions.UnregisterCallbacks(IControlsActions)" />
+        public void RemoveCallbacks(IControlsActions instance)
         {
-            if (m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_ControlsActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -340,21 +340,21 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="NewactionmapActions.AddCallbacks(INewactionmapActions)" />
-        /// <seealso cref="NewactionmapActions.RemoveCallbacks(INewactionmapActions)" />
-        /// <seealso cref="NewactionmapActions.UnregisterCallbacks(INewactionmapActions)" />
-        public void SetCallbacks(INewactionmapActions instance)
+        /// <seealso cref="ControlsActions.AddCallbacks(IControlsActions)" />
+        /// <seealso cref="ControlsActions.RemoveCallbacks(IControlsActions)" />
+        /// <seealso cref="ControlsActions.UnregisterCallbacks(IControlsActions)" />
+        public void SetCallbacks(IControlsActions instance)
         {
-            foreach (var item in m_Wrapper.m_NewactionmapActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_ControlsActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_ControlsActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="NewactionmapActions" /> instance referencing this action map.
+    /// Provides a new <see cref="ControlsActions" /> instance referencing this action map.
     /// </summary>
-    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
+    public ControlsActions @Controls => new ControlsActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -421,11 +421,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         }
     }
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "New action map" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Controls" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="NewactionmapActions.AddCallbacks(INewactionmapActions)" />
-    /// <seealso cref="NewactionmapActions.RemoveCallbacks(INewactionmapActions)" />
-    public interface INewactionmapActions
+    /// <seealso cref="ControlsActions.AddCallbacks(IControlsActions)" />
+    /// <seealso cref="ControlsActions.RemoveCallbacks(IControlsActions)" />
+    public interface IControlsActions
     {
         /// <summary>
         /// Method invoked when associated input action "Advance" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.

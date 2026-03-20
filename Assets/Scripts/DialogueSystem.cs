@@ -111,7 +111,14 @@ public class DialogueSystem : MonoBehaviour
         if (!fadeIn) { gameObject.SetActive(false); }
         else { StartConversation(0); }
     }
-    
+
+    private void Update()
+    {
+        if (InputControls.instance.advance.WasPressedThisFrame())
+        {
+            Debug.Log("Space pressed");
+        }
+    }
 
     void StartConversation(int conversationId)
     {

@@ -3,7 +3,7 @@
     "name": "InputSystem_Actions",
     "maps": [
         {
-            "name": "New action map",
+            "name": "Controls",
             "id": "72258a25-919c-4144-a452-a1ccfbc08bd9",
             "actions": [
                 {
