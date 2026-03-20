@@ -7,6 +7,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public enum Mood
 {
+    None, // None means don't show this character
     Default,
     Surprised,
     Upset,
@@ -14,7 +15,7 @@ public enum Mood
     Happy
 }
 
-public enum Character
+public enum Speaking
 {
     Player,
     NPC1,
@@ -29,9 +30,9 @@ public static class TextData
         // ID: 0, is debug dialogue
         {0, new ArrayList { 
         new TextEntry("This is said by the player. This text exist solely to see if the text system works and how scrolling text should look like. " +
-            "It has no impact on the game nor has it any relevance other than serving as a placeholder for dialogue.", Mood.Default, Mood.Default, Character.Player),
+            "It has no impact on the game nor has it any relevance other than serving as a placeholder for dialogue.", Mood.Default, Mood.Default, Speaking.Player),
         new TextEntry("This Text is the next entry in" +
-            " text without any actual impact. It just exists to test if the sytem works.", Mood.Default, Mood.Default, Character.NPC1),
+            " text without any actual impact. It just exists to test if the sytem works.", Mood.Default, Mood.Default, Speaking.NPC1),
         new DialogueChoice("1. This is a choice you can take in the dialogue, it leads to dialogue 1", 1) }},
         
         // ID: 1, <What is this conversation about>
@@ -46,9 +47,9 @@ public class TextEntry
     public Mood playerSprite;
     public Mood talkTargetSprite;
     // Who says the line
-    public Character talker;
+    public Speaking talker;
 
-    public TextEntry(string text, Mood platerSprite, Mood talkTargetSprite, Character talker)
+    public TextEntry(string text, Mood platerSprite, Mood talkTargetSprite, Speaking talker)
     {
         this.text = text;
         this.playerSprite = platerSprite;
