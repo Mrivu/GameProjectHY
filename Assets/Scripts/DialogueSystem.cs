@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class DialogueSystem : MonoBehaviour
 {
@@ -115,7 +116,23 @@ public class DialogueSystem : MonoBehaviour
     void StartConversation(int conversationId)
     {
         int currentText = 0;
-        string textToDisplay = TextData.textData[currentText][currentText];
+        string textToDisplay = "This is a placeholder";
+
+        // Text Entry
+        if (TextData.textData[conversationId][currentText].GetType() == typeof(TextEntry))
+        {
+            TextEntry textEntry = (TextEntry)TextData.textData[conversationId][currentText];
+            textToDisplay = textEntry.text;
+
+            // Set Moods and who talks
+        }
+
+        // Dialogue Choice
+        else
+        {
+            DialogueChoice dialogueChoice = (DialogueChoice)TextData.textData[conversationId][currentText];
+            textToDisplay = dialogueChoice.choiceText;
+        }
 
         if (ScrollAnimation != null)
         {
