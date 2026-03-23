@@ -35,6 +35,9 @@ public class DialogueSystem : MonoBehaviour
     public TextMeshProUGUI textField;
     public float scrollSpeed = 1.0f;
     private Coroutine ScrollAnimation;
+    private int currentText = 0;
+    private int conversationId = 0;
+    string textToDisplay = "This is a placeholder";
 
 
     private void Awake()
@@ -114,16 +117,37 @@ public class DialogueSystem : MonoBehaviour
 
     private void Update()
     {
-        if (InputControls.instance.advance.WasPressedThisFrame())
+        if (InputControls.instance.advance.WasPressedThisFrame() && DialogueAnimation == null)
         {
-            Debug.Log("Space pressed");
+            if (ScrollAnimation != null)
+            {
+                StopCoroutine(ScrollAnimation);
+                ScrollAnimation = null;
+                textField.text = textToDisplay;
+            }
+            else
+            {
+                currentText += 1;
+                NewText();
+            }
         }
     }
 
-    void StartConversation(int conversationId)
+    void StartConversation(int cID)
     {
-        int currentText = 0;
-        string textToDisplay = "This is a placeholder";
+        conversationId = cID;
+        currentText = 0;
+        NewText();
+    }
+
+    void NewText()
+    {
+        if (currentText >= TextData.textData[conversationId].Count)
+        {
+            // end
+            StartDialogueAnimation(false);
+            return;
+        }
 
         // Text Entry
         if (TextData.textData[conversationId][currentText].GetType() == typeof(TextEntry))
@@ -138,7 +162,7 @@ public class DialogueSystem : MonoBehaviour
         else
         {
             DialogueChoice dialogueChoice = (DialogueChoice)TextData.textData[conversationId][currentText];
-            textToDisplay = dialogueChoice.choiceText;
+            //textToDisplay = dialogueChoice.choiceText;
         }
 
         if (ScrollAnimation != null)
@@ -146,7 +170,6 @@ public class DialogueSystem : MonoBehaviour
             StopCoroutine(ScrollAnimation);
         }
         ScrollAnimation = StartCoroutine(ScrollText(textToDisplay));
-
     }
 
     private IEnumerator ScrollText(string text)
