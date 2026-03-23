@@ -7,9 +7,9 @@ using static UnityEngine.EventSystems.EventTrigger;
 
 public enum Mood
 {
-    None, // None means don't show this character
-    Default,
-    Surprised,
+    None, // None means don't show this character - 0
+    Default, // 1
+    Surprised, // 2...
     Upset,
     Angry,
     Happy
@@ -17,9 +17,10 @@ public enum Mood
 
 public enum Speaking
 {
-    Player,
-    NPC1,
-    NPC2
+    Player, // 0
+    NPC1, // 1
+    NPC2, // 2...
+    NPC3
 }
 
 public static class TextData
@@ -33,12 +34,12 @@ public static class TextData
         {-1, new ArrayList {
         new TextEntry("Hello reader! This is a tutorial to the dialogue system. In this short tutorial you will see how" +
             " dialogue affects the UI and how choices work. Press space to advance to the next text.", Mood.Default, Mood.Default, Speaking.Player),
-        new TextEntry("You made it! Space can also be pressed to skip a long text animation. Try it on the next one!", Mood.Default, Mood.Default, Speaking.NPC1),
+        new TextEntry("You made it! Space can also be pressed to skip a long text animation. Try it on the next one!", Mood.Default, Mood.Default, Speaking.Player),
         new TextEntry("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
             "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-            "AAAAAAAAAAAAAAAAAAAA", Mood.Default, Mood.Default, Speaking.NPC1),
+            "AAAAAAAAAAAAAAAAAAAA", Mood.Default, Mood.Default, Speaking.Player),
         new TextEntry("Well done, you learnt how to navigate the dialogue system. Now it's time for a choice!" +
-            " Click the choice with your mouse to make the choice. There can be up to 3 dialogue choices available.", Mood.Default, Mood.Default, Speaking.NPC1),
+            " Click the choice with your mouse to make the choice. There can be up to 3 dialogue choices available.", Mood.Default, Mood.Default, Speaking.Player),
         new DialogueChoices(new List<(string, int)> {
         ("1. Choose this if you want to end the dialogue.", -2),
         ("2. Choose this if you want to learn about Moods.", -3),
@@ -54,10 +55,12 @@ public static class TextData
         // ID: -3, Tutorial text - moods
         {-3, new ArrayList {
         new TextEntry("Okay, so moods are reactions characters have while talking.", Mood.Default, Mood.Default, Speaking.Player),
+        new TextEntry("You can switch which character is speaking by changing the Speaking enum.", Mood.Default, Mood.Default, Speaking.NPC1),
+        new TextEntry("The person you are talking to appears only after speaking.", Mood.Default, Mood.Default, Speaking.NPC1),
         new TextEntry("Look, now both characters are Angry!", Mood.Angry, Mood.Angry, Speaking.Player),
-        new TextEntry("You can switch which character is speaking by changing the Speaking enum.", Mood.Angry, Mood.Angry, Speaking.NPC1),
+        new TextEntry("The character you are speaking to might change mid conversation.", Mood.Angry, Mood.Angry, Speaking.NPC2),
         new TextEntry("And if a mood is set to None, the character dissapears, " +
-            "making it look like the player is talking to themselves.", Mood.Surprised, Mood.None, Speaking.Player),
+            "making it look like the player is talking to themselves. This doesn't work on the player.", Mood.Surprised, Mood.None, Speaking.Player),
         new TextEntry("That's all for now...", Mood.Surprised, Mood.None, Speaking.Player),
         new DialogueChoices(new List<(string, int)> {
         ("1. Choose this if you want to end the dialogue.", -2),
@@ -78,16 +81,16 @@ public static class TextData
 public class TextEntry
 {
     public string text;
-    public Mood playerSprite;
-    public Mood talkTargetSprite;
+    public Mood playerMood;
+    public Mood talkTargetMood;
     // Who says the line
     public Speaking talker;
 
-    public TextEntry(string text, Mood platerSprite, Mood talkTargetSprite, Speaking talker)
+    public TextEntry(string text, Mood playerMood, Mood talkTargetMood, Speaking talker)
     {
         this.text = text;
-        this.playerSprite = platerSprite;
-        this.talkTargetSprite = talkTargetSprite;
+        this.playerMood = playerMood;
+        this.talkTargetMood = talkTargetMood;
         this.talker = talker;
     }
 }

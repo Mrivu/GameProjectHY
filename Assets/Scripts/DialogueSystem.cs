@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
 {
     [Header("Animation")]
-    public RectTransform mainCharacter;
-    private Vector2 mainCharacterGoal;
-    private Vector2 mainCharacterStart;
+    public RectTransform player;
+    public TextMeshProUGUI playerMood;
+    private Vector2 playerGoal;
+    private Vector2 playerStart;
 
     public RectTransform talkTarget;
+    public TextMeshProUGUI talkTargetMood;
+    public TextMeshProUGUI talkTargetWho;
+    public Character currentTarget;
     private Vector2 talkTargetGoal;
     private Vector2 talkTargetStart;
 
@@ -45,11 +50,11 @@ public class DialogueSystem : MonoBehaviour
     private void Awake()
     {
         TargetDim = BGDim.color;
-        mainCharacterGoal = mainCharacter.anchoredPosition;
+        playerGoal = player.anchoredPosition;
         talkTargetGoal = talkTarget.anchoredPosition;
         textBoxGoal = textBox.anchoredPosition;
 
-        mainCharacterStart = new Vector2(mainCharacterGoal.x - 300, mainCharacterGoal.y);
+        playerStart = new Vector2(playerGoal.x - 300, playerGoal.y);
         talkTargetStart = new Vector2(talkTargetGoal.x + 300, talkTargetGoal.y);
         textBoxStart = new Vector2(textBoxGoal.x, textBoxGoal.y - 200);
     }
@@ -59,13 +64,13 @@ public class DialogueSystem : MonoBehaviour
     {
         if (fadeIn)
         {
-            mainCharacter.anchoredPosition = mainCharacterStart;
+            player.anchoredPosition = playerStart;
             talkTarget.anchoredPosition = talkTargetStart;
             textBox.anchoredPosition = textBoxStart;
         }
         else
         {
-            mainCharacter.anchoredPosition = mainCharacterGoal;
+            player.anchoredPosition = playerGoal;
             talkTarget.anchoredPosition = talkTargetGoal;
             textBox.anchoredPosition = textBoxGoal;   
         }
@@ -99,13 +104,13 @@ public class DialogueSystem : MonoBehaviour
 
             if (fadeIn)
             {
-                mainCharacter.anchoredPosition = Vector2.Lerp(mainCharacterStart, mainCharacterGoal, t);
+                player.anchoredPosition = Vector2.Lerp(playerStart, playerGoal, t);
                 talkTarget.anchoredPosition = Vector2.Lerp(talkTargetStart, talkTargetGoal, t);
                 textBox.anchoredPosition = Vector2.Lerp(textBoxStart, textBoxGoal, t);
             }
             else
             {
-                mainCharacter.anchoredPosition = Vector2.Lerp(mainCharacterGoal, mainCharacterStart, t);
+                player.anchoredPosition = Vector2.Lerp(playerGoal, playerStart, t);
                 talkTarget.anchoredPosition = Vector2.Lerp(talkTargetGoal, talkTargetStart, t);
                 textBox.anchoredPosition = Vector2.Lerp(textBoxGoal, textBoxStart, t);
             }
@@ -145,6 +150,8 @@ public class DialogueSystem : MonoBehaviour
             }
         }
         newDialogues = new List<int>();
+        currentTarget = null;
+        talkTarget.gameObject.SetActive(false);
 
         conversationId = cID;
         currentText = 0;
@@ -166,7 +173,27 @@ public class DialogueSystem : MonoBehaviour
             TextEntry textEntry = (TextEntry)TextData.textData[conversationId][currentText];
             textToDisplay = textEntry.text;
 
+            if (textEntry.talker != Speaking.Player) 
+            {
+                currentTarget = AssetData.characters[(int)textEntry.talker];
+                talkTarget.gameObject.SetActive(true);
+                talkTargetWho.text = currentTarget.name;
+            }
+
             // Set Moods and who talks
+            playerMood.text = AssetData.player.moods[(int)textEntry.playerMood];
+            if (currentTarget != null)
+            {
+                if (textEntry.talkTargetMood == Mood.None)
+                {
+                    currentTarget = null;
+                    talkTarget.gameObject.SetActive(false);
+                }
+                else
+                {
+                   talkTargetMood.text = currentTarget.moods[(int)textEntry.talkTargetMood];
+                }
+            }
         }
 
         // Dialogue Choice
