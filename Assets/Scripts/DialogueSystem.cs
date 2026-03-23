@@ -114,7 +114,7 @@ public class DialogueSystem : MonoBehaviour
         DialogueAnimation = null;
 
         if (!fadeIn) { gameObject.SetActive(false); }
-        else { StartConversation(0); }
+        else { StartConversation(-1); }
     }
 
     private void Update()
