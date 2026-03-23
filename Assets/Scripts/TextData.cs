@@ -27,22 +27,40 @@ public static class TextData
     // ID, list of TextEntries, text or choice
     public static Dictionary<int, ArrayList> textData = new Dictionary<int, ArrayList>()
     {
-        // ID: 0, is debug dialogue
+        // ID's: 0-5 reserved for tutorials
+        // ID: 0, Tutorial text
         {0, new ArrayList {
-        new TextEntry("This is said by the player. This text exist solely to see if the text system works and how scrolling text should look like. " +
-            "It has no impact on the game nor has it any relevance other than serving as a placeholder for dialogue.", Mood.Default, Mood.Default, Speaking.Player),
-        new TextEntry("This Text is the next entry in" +
-            " text without any actual impact. It just exists to test if the sytem works.", Mood.Default, Mood.Default, Speaking.NPC1),
-        new TextEntry("Seriously, There is nothing here.", Mood.Default, Mood.Default, Speaking.NPC1),
-        new TextEntry("This Text is the next entry in" +
-            " text without any actual impact. It just exists to test if the sytem works.", Mood.Default, Mood.Default, Speaking.NPC1),
-        new TextEntry("This is the last line", Mood.Default, Mood.Default, Speaking.NPC1),
-        //new DialogueChoice(new List<(string, int)> { ("1. This is a choice you can take in the dialogue, it leads to dialogue 1", 1),
-        //("2. This is also choice you can take in the dialogue, it leads to dialogue 2", 2)})
+        new TextEntry("Hello reader! This is a tutorial to the dialogue system. In this short tutorial you will see how" +
+            " dialogue affects the UI and how choices work. Press space to advance to the next text.", Mood.Default, Mood.Default, Speaking.Player),
+        new TextEntry("You made it! Space can also be pressed to skip a long text animation. Try it on the next one!", Mood.Default, Mood.Default, Speaking.NPC1),
+        new TextEntry("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
+            "AAAAAAAAAAAAAAAAAAAA", Mood.Default, Mood.Default, Speaking.NPC1),
+        new TextEntry("Well done, you learnt how to navigate the dialogue system. Now it's time for a choice!" +
+            " Click the choice with your mouse to make the choice. There can be up to 3 dialogue choices available.", Mood.Default, Mood.Default, Speaking.NPC1),
+        new DialogueChoices(new List<(string, int)> { ("1. Choose this if you want to end the dialogue.", 1),
+        ("2. Choose this if you want to learn about Moods.", 2),
+        ("3. Choose this if you want to repeat this lesson.", 0)})
         }},
         
-        // ID: 1, <What is this conversation about>
-        { 1, new ArrayList {}}
+        // ID: 1, Tutorial text - end dialogue
+        {1, new ArrayList {
+        new TextEntry("A conversation ends when there are no dialogue options to choose from." +
+             " This is the only text in this dialogue, so it will end after this.", Mood.Default, Mood.Default, Speaking.Player),
+        }},
+
+        // ID: 2, Tutorial text - moods
+        {1, new ArrayList {
+        new TextEntry("Okay, so moods are reactions characters have while talking.", Mood.Default, Mood.Default, Speaking.Player),
+        }},
+
+
+        // Example
+        // ID: ?, <What is this conversation about>
+        {-1, new ArrayList {
+        new TextEntry("A conversation ends when there are no dialogue options to choose from." +
+             " This is the only text in this dialogue, so it will end after this.", Mood.Default, Mood.Default, Speaking.Player),
+        }},
     };
 
 }
@@ -64,11 +82,11 @@ public class TextEntry
     }
 }
 
-public class DialogueChoice
+public class DialogueChoices
 {
     public List<(string, int)> choices = new List<(string, int)>();
 
-    public DialogueChoice(List<(string, int)> choices) 
+    public DialogueChoices(List<(string, int)> choices) 
     {
         this.choices = choices;
     }

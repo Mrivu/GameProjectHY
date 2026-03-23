@@ -1,11 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
-using Unity.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class DialogueSystem : MonoBehaviour
 {
@@ -37,7 +34,12 @@ public class DialogueSystem : MonoBehaviour
     private Coroutine ScrollAnimation;
     private int currentText = 0;
     private int conversationId = 0;
-    string textToDisplay = "This is a placeholder";
+    private string textToDisplay = "This is a placeholder";
+    private bool choiceToMake = false;
+
+    [Header("Choices")]
+    public TextMeshProUGUI[] choices;
+    private List<int> newDialogues;
 
 
     private void Awake()
@@ -117,7 +119,7 @@ public class DialogueSystem : MonoBehaviour
 
     private void Update()
     {
-        if (InputControls.instance.advance.WasPressedThisFrame() && DialogueAnimation == null)
+        if (InputControls.instance.advance.WasPressedThisFrame() && DialogueAnimation == null && !choiceToMake)
         {
             if (ScrollAnimation != null)
             {
@@ -127,7 +129,7 @@ public class DialogueSystem : MonoBehaviour
             }
             else
             {
-                currentText += 1;
+                currentText++;
                 NewText();
             }
         }
@@ -135,6 +137,15 @@ public class DialogueSystem : MonoBehaviour
 
     void StartConversation(int cID)
     {
+        foreach (var choice in choices)
+        {
+            if (choice != null)
+            {
+                choice.gameObject.SetActive(false);
+            }
+        }
+        newDialogues = new List<int>();
+
         conversationId = cID;
         currentText = 0;
         NewText();
@@ -161,18 +172,31 @@ public class DialogueSystem : MonoBehaviour
         // Dialogue Choice
         else
         {
-            DialogueChoice dialogueChoice = (DialogueChoice)TextData.textData[conversationId][currentText];
+            choiceToMake = true;
+            DialogueChoices dialogueChoices = (DialogueChoices)TextData.textData[conversationId][currentText];
             //textToDisplay = dialogueChoice.choiceText;
+            textToDisplay = "";
+
+            int choiceID = 0;
+            foreach (var choice in dialogueChoices.choices)
+            {
+                choices[choiceID].gameObject.SetActive(true);
+                newDialogues.Add(choice.Item2);
+                StartCoroutine(ScrollText(choice.Item1, choices[choiceID]));
+
+                choiceID++;
+            }
+
         }
 
         if (ScrollAnimation != null)
         {
             StopCoroutine(ScrollAnimation);
         }
-        ScrollAnimation = StartCoroutine(ScrollText(textToDisplay));
+        ScrollAnimation = StartCoroutine(ScrollText(textToDisplay, textField));
     }
 
-    private IEnumerator ScrollText(string text)
+    private IEnumerator ScrollText(string text, TextMeshProUGUI target)
     {
         float time = 0;
         int textLen = text.Length;
@@ -182,11 +206,17 @@ public class DialogueSystem : MonoBehaviour
             time += Time.deltaTime;
             float t = time / scrollSpeed;
 
-            textField.text = text[0..(int)(textLen*t)];
+            target.text = text[0..(int)(textLen*t)];
 
             yield return null;
         }
 
         ScrollAnimation = null;
+    }
+
+    public void ChoiceMade(int buttonID)
+    {
+        StartConversation(newDialogues[buttonID]);
+        choiceToMake = false;
     }
 }
