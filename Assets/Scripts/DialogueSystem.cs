@@ -8,6 +8,10 @@ using UnityEngine.UI;
 public class DialogueSystem : MonoBehaviour
 {
     [Header("Animation")]
+    public float speakingBigSize = 1.2f;
+    public float speakingSmallSize = 0.8f;
+    public float speakingAnimationTime = 0.4f;
+    private Coroutine speakingAnimation;
     public RectTransform player;
     public TextMeshProUGUI playerMood;
     private Vector2 playerGoal;
@@ -194,6 +198,20 @@ public class DialogueSystem : MonoBehaviour
                    talkTargetMood.text = currentTarget.moods[(int)textEntry.talkTargetMood];
                 }
             }
+
+            if (speakingAnimation != null)
+            {
+                StopCoroutine(speakingAnimation);
+            }
+
+            if (textEntry.talker == Speaking.Player)
+            {
+                StartCoroutine(AnimateSpeaking(true));
+            }
+            else
+            {
+                StartCoroutine(AnimateSpeaking(false));
+            }
         }
 
         // Dialogue Choice
@@ -221,6 +239,37 @@ public class DialogueSystem : MonoBehaviour
             StopCoroutine(ScrollAnimation);
         }
         ScrollAnimation = StartCoroutine(ScrollText(textToDisplay, textField));
+    }
+
+    private IEnumerator AnimateSpeaking(bool playerSpeaking)
+    {
+        float time = 0;
+        while (time < speakingAnimationTime)
+        {
+            time += Time.deltaTime;
+            float t = time / speakingAnimationTime;
+
+            if (playerSpeaking)
+            {
+                float big = Mathf.Lerp(player.localScale.x, speakingBigSize, t);
+                float small = Mathf.Lerp(talkTarget.localScale.x, speakingSmallSize, t);
+
+                player.localScale = new Vector2(big, big);
+                talkTarget.localScale = new Vector2(small, small);
+            }
+            else
+            {
+                float big = Mathf.Lerp(talkTarget.localScale.x, speakingBigSize, t);
+                float small = Mathf.Lerp(player.localScale.x, speakingSmallSize, t);
+
+                player.localScale = new Vector2(small, small);
+                talkTarget.localScale = new Vector2(big, big);
+            }
+
+            yield return null;
+        }
+
+        speakingAnimation = null;
     }
 
     private IEnumerator ScrollText(string text, TextMeshProUGUI target)

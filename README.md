@@ -69,16 +69,15 @@ Dictionary<int, ArrayList>
 ```
 meaning an unique ID corresponding to a list of text.
 
-There are two types of text: TextEntry and DialogueChoice.
+There are two types of text: TextEntry and DialogueChoices.
 TextEntry has the following fields:
 - text: What is said
 - playerSprite: Mood of the player
 - talkTargetSprite: Mood of the talkTarget/NPC
 - Speaking talker: Who says the line
 
-DialogueChoice has the following fields:
-- choiceText: What is said/what is the choice
-- nextDialogueID: What conversation is the choice leading into
+DialogueChoices is a list of tuples containing two values: the text and the id of the next conversation.
+Place all dialogue choices into that list. Each conversation should only have 1 DialogueChoices component.
 
 Note: If Mood is set to None, that character doesn't appear.
 

@@ -1750,7 +1750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1125048385
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1786,6 +1786,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6461832378ff1e34499f46dfb71fbfcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSystem
+  speakingBigSize: 1.05
+  speakingSmallSize: 0.85
+  speakingAnimationTime: 0.6
   player: {fileID: 522548022}
   playerMood: {fileID: 282142789}
   talkTarget: {fileID: 547357110}
