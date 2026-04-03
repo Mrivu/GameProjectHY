@@ -13,12 +13,12 @@ To get the latest changes after cloning, run the following in the git folder.
 git pull
 ```
 
-2. Open Unity Hub and check that you have Unity 6000.3.11f1 installed.
-Install Unity 6000.3.11f: 
+2. Open Unity Hub and check that you have Unity 6000.4.1f1 installed.
+Install Unity 6000.4.1f1: 
 ```
-https://unity.com/releases/editor/whats-new/6000.3.11f1
+https://unity.com/releases/editor/whats-new/6000.4.1f1
 ```
-Then, add the git folder to unity hub.
+Then, add the git folder to unity hub. It is found under Users/username
 ![AddProject](DocumentationImages/AddProject.png)
 
 3. Open the project. When editing, make sure to do so on the correct branch. Main is used for programming, but other branches include:
