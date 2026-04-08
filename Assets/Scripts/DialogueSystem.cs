@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
 {
+    [HideInInspector] public bool dialogueRunning = false;
+
     [Header("Animation")]
     public float speakingBigSize = 1.2f;
     public float speakingSmallSize = 0.8f;
@@ -64,29 +66,31 @@ public class DialogueSystem : MonoBehaviour
     }
 
 
-    public void StartDialogueAnimation(bool fadeIn)
+    public void StartDialogueAnimation(bool fadeIn, int conversationID)
     {
         if (fadeIn)
         {
             player.anchoredPosition = playerStart;
             talkTarget.anchoredPosition = talkTargetStart;
             textBox.anchoredPosition = textBoxStart;
+            dialogueRunning = true;
         }
         else
         {
             player.anchoredPosition = playerGoal;
             talkTarget.anchoredPosition = talkTargetGoal;
             textBox.anchoredPosition = textBoxGoal;   
+            dialogueRunning = false;
         }
 
         if (DialogueAnimation != null)
         {
             StopCoroutine(DialogueAnimation);
         }
-        DialogueAnimation = StartCoroutine(FadeDialogue(fadeIn));
+        DialogueAnimation = StartCoroutine(FadeDialogue(fadeIn, conversationID));
     }
 
-    private IEnumerator FadeDialogue(bool fadeIn)
+    private IEnumerator FadeDialogue(bool fadeIn, int conversationID)
     {
         float time = 0;
 
@@ -123,7 +127,7 @@ public class DialogueSystem : MonoBehaviour
         DialogueAnimation = null;
 
         if (!fadeIn) { gameObject.SetActive(false); }
-        else { StartConversation(-1); }
+        else { StartConversation(conversationID); }
     }
 
     private void Update()
@@ -167,7 +171,7 @@ public class DialogueSystem : MonoBehaviour
         if (currentText >= TextData.textData[conversationId].Count)
         {
             // end
-            StartDialogueAnimation(false);
+            StartDialogueAnimation(false, 0);
             return;
         }
 
