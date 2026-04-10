@@ -13,12 +13,12 @@ To get the latest changes after cloning, run the following in the git folder.
 git pull
 ```
 
-2. Open Unity Hub and check that you have Unity 6000.3.11f1 installed.
-Install Unity 6000.3.11f: 
+2. Open Unity Hub and check that you have Unity 6000.4.1f1 installed.
+Install Unity 6000.4.1f1: 
 ```
-https://unity.com/releases/editor/whats-new/6000.3.11f1
+https://unity.com/releases/editor/whats-new/6000.4.1f1
 ```
-Then, add the git folder to unity hub.
+Then, add the git folder to unity hub. It is found under Users/username
 ![AddProject](DocumentationImages/AddProject.png)
 
 3. Open the project. When editing, make sure to do so on the correct branch. Main is used for programming, but other branches include:
@@ -69,16 +69,15 @@ Dictionary<int, ArrayList>
 ```
 meaning an unique ID corresponding to a list of text.
 
-There are two types of text: TextEntry and DialogueChoice.
+There are two types of text: TextEntry and DialogueChoices.
 TextEntry has the following fields:
 - text: What is said
 - playerSprite: Mood of the player
 - talkTargetSprite: Mood of the talkTarget/NPC
 - Speaking talker: Who says the line
 
-DialogueChoice has the following fields:
-- choiceText: What is said/what is the choice
-- nextDialogueID: What conversation is the choice leading into
+DialogueChoices is a list of tuples containing two values: the text and the id of the next conversation.
+Place all dialogue choices into that list. Each conversation should only have 1 DialogueChoices component.
 
 Note: If Mood is set to None, that character doesn't appear.
 

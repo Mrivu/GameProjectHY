@@ -1,41 +1,21 @@
 using UnityEngine;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class GameManager : MonoBehaviour
 {
     public DialogueSystem dialogueSystem;
 
-    void Start()
-    {
-        //TestDialogue();
-        Invoke(nameof(StartDialogue), 1f);
+    public static GameManager Instance { get; private set; }
 
-    }
-
-    void TestDialogue()
-    {
-        Invoke(nameof(StartDialogue), 1f);
-        Invoke(nameof(StartDialogue), 5f);
-        Invoke(nameof(EndDialogue), 7f);
-        Invoke(nameof(StartDialogue), 9f);
-        Invoke(nameof(StartDialogue), 11f);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void StartDialogue()
+    void Awake()
     {
         dialogueSystem.gameObject.SetActive(true);
-        dialogueSystem.StartDialogueAnimation(true);
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    void EndDialogue()
+    private void Start()
     {
-        dialogueSystem.gameObject.SetActive(true);
-        dialogueSystem.StartDialogueAnimation(false);
+        dialogueSystem.gameObject.SetActive(false);
     }
 }

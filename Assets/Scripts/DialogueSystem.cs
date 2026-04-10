@@ -1,17 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
 {
+    [HideInInspector] public bool dialogueRunning = false;
+
     [Header("Animation")]
-    public RectTransform mainCharacter;
-    private Vector2 mainCharacterGoal;
-    private Vector2 mainCharacterStart;
+    public float speakingBigSize = 1.2f;
+    public float speakingSmallSize = 0.8f;
+    public float speakingAnimationTime = 0.4f;
+    private Coroutine speakingAnimation;
+    public RectTransform player;
+    public Image playerMood;
+    private Vector2 playerGoal;
+    private Vector2 playerStart;
 
     public RectTransform talkTarget;
+    public Image talkTargetMood;
+    public TextMeshProUGUI talkTargetWho;
+    public Character currentTarget;
     private Vector2 talkTargetGoal;
     private Vector2 talkTargetStart;
 
@@ -45,39 +56,41 @@ public class DialogueSystem : MonoBehaviour
     private void Awake()
     {
         TargetDim = BGDim.color;
-        mainCharacterGoal = mainCharacter.anchoredPosition;
+        playerGoal = player.anchoredPosition;
         talkTargetGoal = talkTarget.anchoredPosition;
         textBoxGoal = textBox.anchoredPosition;
 
-        mainCharacterStart = new Vector2(mainCharacterGoal.x - 300, mainCharacterGoal.y);
+        playerStart = new Vector2(playerGoal.x - 300, playerGoal.y);
         talkTargetStart = new Vector2(talkTargetGoal.x + 300, talkTargetGoal.y);
         textBoxStart = new Vector2(textBoxGoal.x, textBoxGoal.y - 200);
     }
 
 
-    public void StartDialogueAnimation(bool fadeIn)
+    public void StartDialogueAnimation(bool fadeIn, int conversationID)
     {
         if (fadeIn)
         {
-            mainCharacter.anchoredPosition = mainCharacterStart;
+            player.anchoredPosition = playerStart;
             talkTarget.anchoredPosition = talkTargetStart;
             textBox.anchoredPosition = textBoxStart;
+            dialogueRunning = true;
         }
         else
         {
-            mainCharacter.anchoredPosition = mainCharacterGoal;
+            player.anchoredPosition = playerGoal;
             talkTarget.anchoredPosition = talkTargetGoal;
             textBox.anchoredPosition = textBoxGoal;   
+            dialogueRunning = false;
         }
 
         if (DialogueAnimation != null)
         {
             StopCoroutine(DialogueAnimation);
         }
-        DialogueAnimation = StartCoroutine(FadeDialogue(fadeIn));
+        DialogueAnimation = StartCoroutine(FadeDialogue(fadeIn, conversationID));
     }
 
-    private IEnumerator FadeDialogue(bool fadeIn)
+    private IEnumerator FadeDialogue(bool fadeIn, int conversationID)
     {
         float time = 0;
 
@@ -99,13 +112,13 @@ public class DialogueSystem : MonoBehaviour
 
             if (fadeIn)
             {
-                mainCharacter.anchoredPosition = Vector2.Lerp(mainCharacterStart, mainCharacterGoal, t);
+                player.anchoredPosition = Vector2.Lerp(playerStart, playerGoal, t);
                 talkTarget.anchoredPosition = Vector2.Lerp(talkTargetStart, talkTargetGoal, t);
                 textBox.anchoredPosition = Vector2.Lerp(textBoxStart, textBoxGoal, t);
             }
             else
             {
-                mainCharacter.anchoredPosition = Vector2.Lerp(mainCharacterGoal, mainCharacterStart, t);
+                player.anchoredPosition = Vector2.Lerp(playerGoal, playerStart, t);
                 talkTarget.anchoredPosition = Vector2.Lerp(talkTargetGoal, talkTargetStart, t);
                 textBox.anchoredPosition = Vector2.Lerp(textBoxGoal, textBoxStart, t);
             }
@@ -114,7 +127,7 @@ public class DialogueSystem : MonoBehaviour
         DialogueAnimation = null;
 
         if (!fadeIn) { gameObject.SetActive(false); }
-        else { StartConversation(-1); }
+        else { StartConversation(conversationID); }
     }
 
     private void Update()
@@ -145,6 +158,8 @@ public class DialogueSystem : MonoBehaviour
             }
         }
         newDialogues = new List<int>();
+        currentTarget = null;
+        talkTarget.gameObject.SetActive(false);
 
         conversationId = cID;
         currentText = 0;
@@ -156,7 +171,7 @@ public class DialogueSystem : MonoBehaviour
         if (currentText >= TextData.textData[conversationId].Count)
         {
             // end
-            StartDialogueAnimation(false);
+            StartDialogueAnimation(false, 0);
             return;
         }
 
@@ -166,7 +181,41 @@ public class DialogueSystem : MonoBehaviour
             TextEntry textEntry = (TextEntry)TextData.textData[conversationId][currentText];
             textToDisplay = textEntry.text;
 
+            if (textEntry.talker != Speaking.Player) 
+            {
+                currentTarget = AssetData.characters[(int)textEntry.talker];
+                talkTarget.gameObject.SetActive(true);
+                talkTargetWho.text = currentTarget.name;
+            }
+
             // Set Moods and who talks
+            playerMood.sprite = AssetData.player.moods[(int)textEntry.playerMood];
+            if (currentTarget != null)
+            {
+                if (textEntry.talkTargetMood == Mood.None)
+                {
+                    currentTarget = null;
+                    talkTarget.gameObject.SetActive(false);
+                }
+                else
+                {
+                   talkTargetMood.sprite = currentTarget.moods[(int)textEntry.talkTargetMood];
+                }
+            }
+
+            if (speakingAnimation != null)
+            {
+                StopCoroutine(speakingAnimation);
+            }
+
+            if (textEntry.talker == Speaking.Player)
+            {
+                StartCoroutine(AnimateSpeaking(true));
+            }
+            else
+            {
+                StartCoroutine(AnimateSpeaking(false));
+            }
         }
 
         // Dialogue Choice
@@ -194,6 +243,37 @@ public class DialogueSystem : MonoBehaviour
             StopCoroutine(ScrollAnimation);
         }
         ScrollAnimation = StartCoroutine(ScrollText(textToDisplay, textField));
+    }
+
+    private IEnumerator AnimateSpeaking(bool playerSpeaking)
+    {
+        float time = 0;
+        while (time < speakingAnimationTime)
+        {
+            time += Time.deltaTime;
+            float t = time / speakingAnimationTime;
+
+            if (playerSpeaking)
+            {
+                float big = Mathf.Lerp(player.localScale.x, speakingBigSize, t);
+                float small = Mathf.Lerp(talkTarget.localScale.x, speakingSmallSize, t);
+
+                player.localScale = new Vector2(big, big);
+                talkTarget.localScale = new Vector2(small, small);
+            }
+            else
+            {
+                float big = Mathf.Lerp(talkTarget.localScale.x, speakingBigSize, t);
+                float small = Mathf.Lerp(player.localScale.x, speakingSmallSize, t);
+
+                player.localScale = new Vector2(small, small);
+                talkTarget.localScale = new Vector2(big, big);
+            }
+
+            yield return null;
+        }
+
+        speakingAnimation = null;
     }
 
     private IEnumerator ScrollText(string text, TextMeshProUGUI target)
