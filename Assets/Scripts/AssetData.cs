@@ -16,15 +16,17 @@ public static class AssetData
 public class Character
 {
     public string name;
-    public Dictionary<int, string> moods = new Dictionary<int, string>() 
+
+
+    public Dictionary<int, Sprite> moods = new Dictionary<int, Sprite>() 
     {
         // Default values
-        {0, "None"},
-        {1, "Default"},
-        {2, "Surprised"},
-        {3, "Upset"},
-        {4, "Angry"},
-        {5, "Happy"},
+        {0, Resources.Load<Sprite>("Characters/MC/MC_base")}, // None
+        {1, Resources.Load<Sprite>("Characters/MC/MC_base")}, // Default
+        {2, Resources.Load <Sprite>("Characters/MC/MC_surprise")}, // Surprised
+        {3, Resources.Load <Sprite>("Characters/MC/MC_smile_small")}, // Smile
+        {4, Resources.Load <Sprite>("Characters/MC/MC_smile")}, // Happy
+        {5, Resources.Load <Sprite>("Characters/MC/MC_grumpy")}, // Upset
     };
 
     public Character(string name)
@@ -37,7 +39,8 @@ public class Player : Character
 {
     public Player() : base("Player")
     {
-        //moods[0] = "a";
+        // Replace with unique to character
+        moods[1] = Resources.Load<Sprite>("Characters/MC/MC_base");
     }
 }
 
@@ -45,7 +48,8 @@ public class NPC1 : Character
 {
     public NPC1() : base("NPC1")
     {
-        //moods[0] = "a";
+        // Replace with unique to character
+        moods[1] = Resources.Load<Sprite>("Characters/MC/MC_base");
     }
 }
 
@@ -53,6 +57,7 @@ public class NPC2 : Character
 {
     public NPC2() : base("NPC2")
     {
-        //moods[0] = "a";
+        // Replace with unique to character
+        moods[1] = Resources.Load<Sprite>("Characters/MC/MC_base");
     }
 }

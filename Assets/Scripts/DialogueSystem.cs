@@ -15,12 +15,12 @@ public class DialogueSystem : MonoBehaviour
     public float speakingAnimationTime = 0.4f;
     private Coroutine speakingAnimation;
     public RectTransform player;
-    public TextMeshProUGUI playerMood;
+    public Image playerMood;
     private Vector2 playerGoal;
     private Vector2 playerStart;
 
     public RectTransform talkTarget;
-    public TextMeshProUGUI talkTargetMood;
+    public Image talkTargetMood;
     public TextMeshProUGUI talkTargetWho;
     public Character currentTarget;
     private Vector2 talkTargetGoal;
@@ -189,7 +189,7 @@ public class DialogueSystem : MonoBehaviour
             }
 
             // Set Moods and who talks
-            playerMood.text = AssetData.player.moods[(int)textEntry.playerMood];
+            playerMood.sprite = AssetData.player.moods[(int)textEntry.playerMood];
             if (currentTarget != null)
             {
                 if (textEntry.talkTargetMood == Mood.None)
@@ -199,7 +199,7 @@ public class DialogueSystem : MonoBehaviour
                 }
                 else
                 {
-                   talkTargetMood.text = currentTarget.moods[(int)textEntry.talkTargetMood];
+                   talkTargetMood.sprite = currentTarget.moods[(int)textEntry.talkTargetMood];
                 }
             }
 

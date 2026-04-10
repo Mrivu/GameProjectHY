@@ -10,9 +10,9 @@ public enum Mood
     None, // None means don't show this character - 0
     Default, // 1
     Surprised, // 2...
-    Upset,
-    Angry,
-    Happy
+    Smile,
+    Happy,
+    Upset
 }
 
 public enum Speaking
@@ -57,8 +57,8 @@ public static class TextData
         new TextEntry("Okay, so moods are reactions characters have while talking.", Mood.Default, Mood.Default, Speaking.Player),
         new TextEntry("You can switch which character is speaking by changing the Speaking enum.", Mood.Default, Mood.Default, Speaking.NPC1),
         new TextEntry("The person you are talking to appears only after speaking.", Mood.Default, Mood.Default, Speaking.NPC1),
-        new TextEntry("Look, now both characters are Angry!", Mood.Angry, Mood.Angry, Speaking.Player),
-        new TextEntry("The character you are speaking to might change mid conversation.", Mood.Angry, Mood.Angry, Speaking.NPC2),
+        new TextEntry("Look, now both characters are Upset!", Mood.Upset, Mood.Upset, Speaking.Player),
+        new TextEntry("The character you are speaking to might change mid conversation.", Mood.Upset, Mood.Upset, Speaking.NPC2),
         new TextEntry("And if a mood is set to None, the character dissapears, " +
             "making it look like the player is talking to themselves. This doesn't work on the player.", Mood.Surprised, Mood.None, Speaking.Player),
         new TextEntry("That's all for now...", Mood.Surprised, Mood.None, Speaking.Player),
