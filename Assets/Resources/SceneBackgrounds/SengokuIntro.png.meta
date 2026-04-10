@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 01b780f9bdf24e34fb9e5d8baf1d6dee
+guid: 19c2f035759544c5a849689626e89a56
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4610823468830707477
-    second: SengokuInterior_0
+      213: -3351407757877771077
+    second: Picture 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SengokuInterior_0
+      name: Picture 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        y: 9
+        width: 3117
+        height: 1754
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: be0bf4afb701300c0800000000000000
-      internalID: -4610823468830707477
+      spriteID: bb4053696686d71d0800000000000000
+      internalID: -3351407757877771077
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      SengokuInterior_0: -4610823468830707477
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
