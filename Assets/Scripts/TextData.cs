@@ -80,22 +80,35 @@ public static class TextData
         new TextEntry("I wonder if it truly has healing powers as mother always told us.", Mood.Default, Mood.Default, Speaking.Player),
         new TextEntry("It feels special in a way that I can't explain...", Mood.Smile, Mood.Default, Speaking.Player),
         }},
-        // ID:2, Interacting with mother's bed
+        // ID: 2, Interacting with mother's bed
         {2, new ArrayList {
         new TextEntry("I promise that I'll find something that can help you...", Mood.Upset, Mood.Default, Speaking.Player),
         }},
-        // ID:3, Interacting with the door before picking up the gourd
+        // ID: 3, Interacting with the door before picking up the gourd
         {3, new ArrayList {
         new TextEntry("I should take the healing gourd with me before I head out.", Mood.Default, Mood.Default, Speaking.Player),
         }},
-        // ID:4, Interacting with the door after picking up the gourd
+        // ID: 4, Interacting with the door after picking up the gourd
         {4, new ArrayList {
         new TextEntry("I'm ready to head out to the temple.", Mood.Default, Mood.Default, Speaking.Player),
         // new DialogueChoices(new List<(string, int)> {
         //("1. Go outside.", -2),
         //("2. Stay.", -1)})
+        }},
+
+        // ID: 5, Entering outdoors for the first time
+        {5, new ArrayList {
+            new TextEntry("Hmm, there seems to be a samurai in town. I should ask him if he knows anything about the healer.", Mood.Default, Mood.Default, Speaking.Player),
+        }},
+        // ID: 6, Interacting with the path or the house door before talking to Toyotomi
+        {6, new ArrayList {
+            new TextEntry("I should try talking to the samurai first.", Mood.Default, Mood.Default, Speaking.Player),
+        }},
+        // ID: 7, Interacting with Toyotomi Hideyoshi
+        {7, new ArrayList {
+            new TextEntry("Hello, young samurai. Would you happen to know anything about the healer in town?", Mood.Default, Mood.Default, Speaking.Player),
         }}
-        
+
 
     };
 
