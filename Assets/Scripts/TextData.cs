@@ -68,12 +68,35 @@ public static class TextData
         }},
 
 
-        // Example
-        // ID: ?, <What is this conversation about>
+        // ID: 0, Intro dialogue, played directly after the Main Menu
         {0, new ArrayList {
-        new TextEntry("A conversation ends when there are no dialogue options to choose from." +
-             " This is the only text in this dialogue, so it will end after this.", Mood.Default, Mood.Default, Speaking.Player),
+        new TextEntry("Her sickness has spread even further...she cannot survive for much longer like this...", Mood.Default, Mood.Default, Speaking.Player),
+        new TextEntry("There have been rumours of a healer visiting the temple. I have to try to get a cure for her there.", Mood.Default, Mood.Default, Speaking.Player),
+        new TextEntry("Ah, of course. I should take the healing gourd with me in order to have something to carry the cure in.", Mood.Upset, Mood.Default, Speaking.Player),
         }},
+        // ID: 1, Interacting with the gourd
+        {1, new ArrayList {
+        new TextEntry("There it is, the family healing gourd.", Mood.Default, Mood.Default, Speaking.Player),
+        new TextEntry("I wonder if it truly has healing powers as mother always told us.", Mood.Default, Mood.Default, Speaking.Player),
+        new TextEntry("It feels special in a way that I can't explain...", Mood.Smile, Mood.Default, Speaking.Player),
+        }},
+        // ID:2, Interacting with mother's bed
+        {2, new ArrayList {
+        new TextEntry("I promise that I'll find something that can help you...", Mood.Upset, Mood.Default, Speaking.Player),
+        }},
+        // ID:3, Interacting with the door before picking up the gourd
+        {3, new ArrayList {
+        new TextEntry("I should take the healing gourd with me before I head out.", Mood.Default, Mood.Default, Speaking.Player),
+        }},
+        // ID:4, Interacting with the door after picking up the gourd
+        {4, new ArrayList {
+        new TextEntry("I'm ready to head out to the temple.", Mood.Default, Mood.Default, Speaking.Player),
+        // new DialogueChoices(new List<(string, int)> {
+        //("1. Go outside.", -2),
+        //("2. Stay.", -1)})
+        }}
+        
+
     };
 
 }
