@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        dialogueSystem.gameObject.SetActive(false);
+        // Dialogue at the start of the game
+        dialogueSystem.gameObject.SetActive(true);
+        dialogueSystem.StartDialogueAnimation(true, 0);
     }
 }

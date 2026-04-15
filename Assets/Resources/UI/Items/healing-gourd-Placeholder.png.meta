@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 01b780f9bdf24e34fb9e5d8baf1d6dee
+guid: cffce2de8df40834988c107ed852dddc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4610823468830707477
-    second: SengokuInterior_0
+      213: 2852869501505706300
+    second: healing-gourd-Placeholder_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SengokuInterior_0
+      name: healing-gourd-Placeholder_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1080
+        width: 1000
+        height: 1260
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: be0bf4afb701300c0800000000000000
-      internalID: -4610823468830707477
+      spriteID: c391bcb42bd679720800000000000000
+      internalID: 2852869501505706300
       vertices: []
       indices: 
       edges: []

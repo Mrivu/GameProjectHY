@@ -13,6 +13,11 @@ To get the latest changes after cloning, run the following in the git folder.
 git pull
 ```
 
+To enter the git folder, run:
+```
+cd GameProjectHY
+```
+
 2. Open Unity Hub and check that you have Unity 6000.4.1f1 installed.
 Install Unity 6000.4.1f1: 
 ```
@@ -82,3 +87,10 @@ Place all dialogue choices into that list. Each conversation should only have 1 
 Note: If Mood is set to None, that character doesn't appear.
 
 For an example, look at the conversation with ID = 0 in ther script.
+
+4. Testing Dialogue
+To test Dialogue, use the Click for Dialogue button found in the game scene.
+![ConversationGuide](DocumentationImages/ConversationGuide.png)
+As seen in the image, first find the gameobject named "ExampleItem". Then look for "Interact" the inspector.
+The conversations list is the list of all the conversations the button leads to. Replace the -1 with another conversationID you want to test and press the button. If you add multiple id's to the list, it will cycle through those conversations. 
+

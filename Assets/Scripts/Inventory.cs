@@ -1,0 +1,36 @@
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
+
+public class Inventory : MonoBehaviour
+{
+    public static Inventory Instance { get; private set; }
+    public List<Image> slots = new List<Image>();
+    public List<Item> inventoryItems = new List<Item>();
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        foreach (var item in slots)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
+
+    public void AddItem(int id)
+    {
+        if (inventoryItems.Count < slots.Count)
+        {
+            inventoryItems.Add(Items.items[id]);
+            int imageID = inventoryItems.Count - 1;
+            slots[imageID].sprite = inventoryItems[imageID].itemImage;
+            slots[imageID].gameObject.SetActive(true);
+        }
+    }
+
+
+}

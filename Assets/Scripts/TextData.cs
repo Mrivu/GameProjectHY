@@ -67,8 +67,6 @@ public static class TextData
         ("2. Choose this if you want to go back.", -1)})
         }},
 
-
-
         // ID: 0, Intro dialogue, played directly after the Main Menu
         {0, new ArrayList {
         new TextEntry("Her sickness has spread even further...she cannot survive for much longer like this...", Mood.Default, Mood.None, Speaking.Player),
