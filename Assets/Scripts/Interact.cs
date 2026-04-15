@@ -10,9 +10,7 @@ public class Interact : MonoBehaviour, IPointerClickHandler
     public List<int> conversations = new List<int>() { -1 };
     public int conversationIndex = 0;
 
-    [Header("Interacting")]
-    public List<int> items = new List<int>();
-
+    public bool oneTime = false;
 
     void Start()
     {
@@ -27,12 +25,10 @@ public class Interact : MonoBehaviour, IPointerClickHandler
             dialogueSystem.gameObject.SetActive(true);
 
             // Interacting with the door before picking up the gourd
-            if (conversations[conversationIndex] == 4 && InteractExceptions.Instance.pickedUpGourd == false)
+            if (conversations[conversationIndex % conversations.Count] == 4 && InteractExceptions.Instance.pickedUpGourd == false)
             {
                 dialogueSystem.StartDialogueAnimation(true, 3);
             }
-
-
             else
             {
                 dialogueSystem.StartDialogueAnimation(true, conversations[conversationIndex % conversations.Count]);
@@ -40,20 +36,9 @@ public class Interact : MonoBehaviour, IPointerClickHandler
 
             conversationIndex++;
         }
-
-        // Items and exceptions
-        //if (items.Count > 0) 
-        //{
-            // Exceptions
-       //     if (Items.items[items[0]].itemID == 0)
-        //    {
-       //         InteractExceptions.Instance.pickedUpGourd = true;
-       //     }
-        //    Inventory.Instance.AddItem(items[0]);
-        //    items.Remove(0);
-
-       // }
+        if (oneTime)
+        {
+            gameObject.SetActive(false);
+        }
     }
-
-    
 }

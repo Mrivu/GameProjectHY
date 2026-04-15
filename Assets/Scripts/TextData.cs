@@ -28,45 +28,8 @@ public static class TextData
     // ID, list of TextEntries, text or choice
     public static Dictionary<int, ArrayList> textData = new Dictionary<int, ArrayList>()
     {
-        // Negatice ID's reserved for tutorial
-        // ID: 0
-        // -1, Tutorial text
-        {-1, new ArrayList {
-        new TextEntry("Hello reader! This is a tutorial to the dialogue system. In this short tutorial you will see how" +
-            " dialogue affects the UI and how choices work. Press space to advance to the next text.", Mood.Default, Mood.Default, Speaking.Player),
-        new TextEntry("You made it! Space can also be pressed to skip a long text animation. Try it on the next one!", Mood.Default, Mood.Default, Speaking.Player),
-        new TextEntry("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" +
-            "AAAAAAAAAAAAAAAAAAAA", Mood.Default, Mood.Default, Speaking.Player),
-        new TextEntry("Well done, you learnt how to navigate the dialogue system. Now it's time for a choice!" +
-            " Click the choice with your mouse to make the choice. There can be up to 3 dialogue choices available.", Mood.Default, Mood.Default, Speaking.Player),
-        new DialogueChoices(new List<(string, int)> {
-        ("1. Choose this if you want to end the dialogue.", -2),
-        ("2. Choose this if you want to learn about Moods.", -3),
-        ("3. Choose this if you want to repeat this lesson.", -1)})
-        }},
+        // negative ID means there isn't a dialogue to go to 
         
-        // ID: -2, Tutorial text - end dialogue
-        {-2, new ArrayList {
-        new TextEntry("A conversation ends when there are no dialogue options to choose from." +
-             " This is the only text in this dialogue, so it will end after this.", Mood.Default, Mood.Default, Speaking.Player),
-        }},
-
-        // ID: -3, Tutorial text - moods
-        {-3, new ArrayList {
-        new TextEntry("Okay, so moods are reactions characters have while talking.", Mood.Default, Mood.Default, Speaking.Player),
-        new TextEntry("You can switch which character is speaking by changing the Speaking enum.", Mood.Default, Mood.Default, Speaking.NPC1),
-        new TextEntry("The person you are talking to appears only after speaking.", Mood.Default, Mood.Default, Speaking.NPC1),
-        new TextEntry("Look, now both characters are Upset!", Mood.Upset, Mood.Upset, Speaking.Player),
-        new TextEntry("The character you are speaking to might change mid conversation.", Mood.Upset, Mood.Upset, Speaking.NPC2),
-        new TextEntry("And if a mood is set to None, the character dissapears, " +
-            "making it look like the player is talking to themselves. This doesn't work on the player.", Mood.Surprised, Mood.None, Speaking.Player),
-        new TextEntry("That's all for now...", Mood.Surprised, Mood.None, Speaking.Player),
-        new DialogueChoices(new List<(string, int)> {
-        ("1. Choose this if you want to end the dialogue.", -2),
-        ("2. Choose this if you want to go back.", -1)})
-        }},
-
         // ID: 0, Intro dialogue, played directly after the Main Menu
         {0, new ArrayList {
         new TextEntry("Her sickness has spread even further...she cannot survive for much longer like this...", Mood.Default, Mood.None, Speaking.Player),
@@ -77,7 +40,7 @@ public static class TextData
         {1, new ArrayList {
         new TextEntry("There it is, the family healing gourd.", Mood.Default, Mood.None, Speaking.Player),
         new TextEntry("I wonder if it truly has healing powers as mother always told us.", Mood.Default, Mood.None, Speaking.Player),
-        new TextEntry("It feels special in a way that I can't explain...", Mood.Smile, Mood.None, Speaking.Player),
+        new TextEntry("It feels special in a way that I can't explain...", Mood.Smile, Mood.None, Speaking.Player, ChoiceAction.GiveItem, "Healing Gourd"),
         }},
         // ID: 2, Interacting with mother's bed
         {2, new ArrayList {
@@ -90,9 +53,9 @@ public static class TextData
         // ID: 4, Interacting with the door after picking up the gourd
         {4, new ArrayList {
         new TextEntry("I'm ready to head out to the temple.", Mood.Default, Mood.None, Speaking.Player),
-        // new DialogueChoices(new List<(string, int)> {
-        //("1. Go outside.", -2),
-        //("2. Stay.", -1)})
+        new DialogueChoices(new List<DialogueChoice> {
+            new DialogueChoice("1. Go outside.", -1, ChoiceAction.LoadScene, "HouseOutside"),
+            new DialogueChoice("2. Stay.", -1)})
         }},
 
         // ID: 5, Entering outdoors for the first time
@@ -129,6 +92,13 @@ public static class TextData
 
 }
 
+public enum ChoiceAction
+{
+    None,
+    LoadScene,
+    GiveItem
+}
+
 public class TextEntry
 {
     public string text;
@@ -137,20 +107,43 @@ public class TextEntry
     // Who says the line
     public Speaking talker;
 
-    public TextEntry(string text, Mood playerMood, Mood talkTargetMood, Speaking talker)
+    public ChoiceAction action;
+    public string actionValue;
+
+    public TextEntry(string text, Mood playerMood, Mood talkTargetMood, Speaking talker, ChoiceAction action = ChoiceAction.None, string actionValue = "")
     {
         this.text = text;
         this.playerMood = playerMood;
         this.talkTargetMood = talkTargetMood;
         this.talker = talker;
+        this.action = action;
+        this.actionValue = actionValue;
+    }
+
+}
+
+
+public class DialogueChoice
+{
+    public string text;
+    public int nextDialogueID;
+    public ChoiceAction action;
+    public string actionValue;
+
+    public DialogueChoice(string text, int nextDialogueId, ChoiceAction action = ChoiceAction.None, string actionValue = "")
+    {
+        this.text = text;
+        this.nextDialogueID = nextDialogueId;
+        this.action = action;
+        this.actionValue = actionValue;
     }
 }
 
 public class DialogueChoices
 {
-    public List<(string, int)> choices = new List<(string, int)>();
+    public List<DialogueChoice> choices = new List<DialogueChoice>();
 
-    public DialogueChoices(List<(string, int)> choices) 
+    public DialogueChoices(List<DialogueChoice> choices) 
     {
         this.choices = choices;
     }
