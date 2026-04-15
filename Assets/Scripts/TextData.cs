@@ -67,7 +67,6 @@ public static class TextData
         ("2. Choose this if you want to go back.", -1)})
         }},
 
-
         // Example
         // ID: ?, <What is this conversation about>
         {0, new ArrayList {
