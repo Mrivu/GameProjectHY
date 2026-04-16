@@ -81,12 +81,16 @@ TextEntry has the following fields:
 - talkTargetSprite: Mood of the talkTarget/NPC
 - Speaking talker: Who says the line
 
-DialogueChoices is a list of tuples containing two values: the text and the id of the next conversation.
-Place all dialogue choices into that list. Each conversation should only have 1 DialogueChoices component.
+DialogueChoices list that contains DialogueChoice-entries. Place all dialogue choices into that list. Each conversation should only have 1 DialogueChoices component.
+
+The Dialogue choice has the text to display and the id of the next conversation. If that ID is -1, the conversation ends with that choice.
 
 Note: If Mood is set to None, that character doesn't appear.
 
-For an example, look at the conversation with ID = 0 in ther script.
+Choice actions: None, LoadScene, GiveItem
+By default, each choice and text has a None choice action. You can add one by adding it to the paramaters.
+For example, LoadScene can be used to load a certain scene after a choice.
+
 
 4. Testing Dialogue
 To test Dialogue, use the Click for Dialogue button found in the game scene.

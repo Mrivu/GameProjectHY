@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        //Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
     }
 
     public void StartGame()
