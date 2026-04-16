@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public static class AssetData
 {
     public static Player player = new Player();
-    public static NPC1 npc1 = new NPC1();
+    public static Toyotomi toyotomi = new Toyotomi();
     public static NPC2 npc2 = new NPC2();
 
     public static List<Character> characters = new List<Character>()
     {
-        player, npc1, npc2
+        player, toyotomi, npc2
     };
 }
 
@@ -44,12 +45,17 @@ public class Player : Character
     }
 }
 
-public class NPC1 : Character
+public class Toyotomi: Character
 {
-    public NPC1() : base("NPC1")
+    public Toyotomi() : base("Toyotomi")
     {
         // Replace with unique to character
-        moods[1] = Resources.Load<Sprite>("Characters/MC/MC_base");
+        moods[0] = Resources.Load<Sprite>("Characters/ToyotomiHideyoshi/Toyotomi_base");
+        moods[1] = Resources.Load<Sprite>("Characters/ToyotomiHideyoshi/Toyotomi_base");
+        moods[2] = Resources.Load<Sprite>("Characters/ToyotomiHideyoshi/Toyotomi_base");
+        moods[3] = Resources.Load<Sprite>("Characters/ToyotomiHideyoshi/Toyotomi_smile");
+        moods[4] = Resources.Load<Sprite>("Characters/ToyotomiHideyoshi/Toyotomi_smile");
+        moods[5] = Resources.Load<Sprite>("Characters/ToyotomiHideyoshi/Toyotomi_base");
     }
 }
 

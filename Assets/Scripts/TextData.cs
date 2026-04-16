@@ -18,7 +18,7 @@ public enum Mood
 public enum Speaking
 {
     Player, // 0
-    NPC1, // 1
+    Toyotomi, // 1
     NPC2, // 2...
     NPC3
 }
@@ -69,19 +69,19 @@ public static class TextData
         // ID: 7, Interacting with Toyotomi Hideyoshi
         {7, new ArrayList {
             new TextEntry("Hello, young samurai. Would you happen to know anything about the healer in town?", Mood.Smile, Mood.Default, Speaking.Player),
-            new TextEntry("Hello, young lady. Yes, I have indeed. Although I am no samurai, just an adventurer on his journey.", Mood.Smile, Mood.Default, Speaking.NPC1),
+            new TextEntry("Hello, young lady. Yes, I have indeed. Although I am no samurai, just an adventurer on his journey.", Mood.Smile, Mood.Default, Speaking.Toyotomi),
             new TextEntry("I see. Well then adventurer, what have you heard of this healer?", Mood.Smile, Mood.Default, Speaking.Player),
-            new TextEntry("He is said to have a cure that can heal the sickness plaguing the people of these territories.", Mood.Smile, Mood.Default, Speaking.NPC1),
-            new TextEntry("However, ever since the betrayal of the Daimyo's son, the healer has been wary of warmongers seeking to use his services for their own gain.", Mood.Smile, Mood.Default, Speaking.NPC1),
+            new TextEntry("He is said to have a cure that can heal the sickness plaguing the people of these territories.", Mood.Smile, Mood.Default, Speaking.Toyotomi),
+            new TextEntry("However, ever since the betrayal of the Daimyo's son, the healer has been wary of warmongers seeking to use his services for their own gain.", Mood.Smile, Mood.Default, Speaking.Toyotomi),
             new TextEntry("Ah, you are talking of the son who feigned illness in order to kill his brothers and " + 
                 "who is now attempting to usurp the Daimyo. My father and brother are fighting in the war against him", Mood.Upset, Mood.Default, Speaking.Player),
             new TextEntry("Yes, the very same one. Why is it that you are looking to meet the healer though? Surely your father " + 
-                "and brother aren't back from the war yet.", Mood.Default, Mood.Default, Speaking.NPC1),
+                "and brother aren't back from the war yet.", Mood.Default, Mood.Default, Speaking.Toyotomi),
             new TextEntry("It's my mother...she is deeply sick...I'm not sure that she can survive much longer.", Mood.Default, Mood.Default, Speaking.Player),
             new TextEntry("I see. Well, then we have to arrange a meeting for you with the healer, although that will require " + 
-                "help from someone with a skill set that is different to mine.", Mood.Default, Mood.Default, Speaking.NPC1),
+                "help from someone with a skill set that is different to mine.", Mood.Default, Mood.Default, Speaking.Toyotomi),
             new TextEntry("Head into that abandoned building over there and tell the person inside that you are a friend of mine and need to " + 
-                "meet with the healer. The name is Hideyoshi", Mood.Smile, Mood.Smile, Speaking.NPC1),
+                "meet with the healer. The name is Hideyoshi", Mood.Smile, Mood.Smile, Speaking.Toyotomi),
             new TextEntry("A thousand thanks, adventurer. I will head there right away.", Mood.Happy, Mood.Smile, Speaking.Player),
         }},
         // ID: 8, Interacting with the path forward before heading into the building

@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
@@ -18,6 +19,25 @@ public class Inventory : MonoBehaviour
         foreach (var item in slots)
         {
             item.gameObject.SetActive(false);
+        }
+    }
+
+    public void FindSlots()
+    {
+        slots = new List<Image>();
+
+        foreach (Transform child in GameObject.Find("Slots").transform)
+        {
+            slots.Add(child.gameObject.GetComponent<Image>());
+            child.gameObject.SetActive(false);
+        }
+
+        int i = 0;
+        foreach (Item item in inventoryItems)
+        {
+            slots[i].gameObject.SetActive(true);
+            slots[i].sprite = item.itemImage;
+            i++;
         }
     }
 

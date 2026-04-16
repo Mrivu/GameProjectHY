@@ -161,6 +161,9 @@ public class DialogueSystem : MonoBehaviour
                 choice.gameObject.SetActive(false);
             }
         }
+
+        InteractExceptions.Instance.CheckDialogueState(conversationId);
+
         newDialogues = new List<(int, ChoiceAction, string)>();
         currentTarget = null;
         talkTarget.gameObject.SetActive(false);
