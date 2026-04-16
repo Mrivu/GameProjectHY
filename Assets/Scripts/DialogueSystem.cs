@@ -50,11 +50,13 @@ public class DialogueSystem : MonoBehaviour
 
     [Header("Choices")]
     public TextMeshProUGUI[] choices;
-    private List<int> newDialogues;
+    private List<(int, ChoiceAction, string)> newDialogues;
 
 
     private void Awake()
     {
+        player.gameObject.SetActive(true);
+
         TargetDim = BGDim.color;
         playerGoal = player.anchoredPosition;
         talkTargetGoal = talkTarget.anchoredPosition;
@@ -70,6 +72,8 @@ public class DialogueSystem : MonoBehaviour
     {
         if (fadeIn)
         {
+            textField.text = "";
+
             player.anchoredPosition = playerStart;
             talkTarget.anchoredPosition = talkTargetStart;
             textBox.anchoredPosition = textBoxStart;
@@ -157,7 +161,10 @@ public class DialogueSystem : MonoBehaviour
                 choice.gameObject.SetActive(false);
             }
         }
-        newDialogues = new List<int>();
+
+        InteractExceptions.Instance.CheckDialogueState(conversationId);
+
+        newDialogues = new List<(int, ChoiceAction, string)>();
         currentTarget = null;
         talkTarget.gameObject.SetActive(false);
 
@@ -180,6 +187,12 @@ public class DialogueSystem : MonoBehaviour
         {
             TextEntry textEntry = (TextEntry)TextData.textData[conversationId][currentText];
             textToDisplay = textEntry.text;
+
+            // Handle choice action
+            if (textEntry.action != ChoiceAction.None)
+            {
+                HandleChoiceEffect(textEntry.action, textEntry.actionValue);
+            }
 
             if (textEntry.talker != Speaking.Player) 
             {
@@ -230,8 +243,8 @@ public class DialogueSystem : MonoBehaviour
             foreach (var choice in dialogueChoices.choices)
             {
                 choices[choiceID].gameObject.SetActive(true);
-                newDialogues.Add(choice.Item2);
-                StartCoroutine(ScrollText(choice.Item1, choices[choiceID]));
+                newDialogues.Add((choice.nextDialogueID, choice.action, choice.actionValue));
+                StartCoroutine(ScrollText(choice.text, choices[choiceID]));
 
                 choiceID++;
             }
@@ -296,7 +309,34 @@ public class DialogueSystem : MonoBehaviour
 
     public void ChoiceMade(int buttonID)
     {
-        StartConversation(newDialogues[buttonID]);
+        if (newDialogues[buttonID].Item2 != ChoiceAction.None)
+        {
+            HandleChoiceEffect(newDialogues[buttonID].Item2, newDialogues[buttonID].Item3);
+        }
+        if (newDialogues[buttonID].Item1 >= 0)
+        {
+            StartConversation(newDialogues[buttonID].Item1);
+        }
+        else
+        {
+            // end
+            StartDialogueAnimation(false, 0);
+        }
         choiceToMake = false;
     }
+
+    public void HandleChoiceEffect(ChoiceAction action, string actionValue)
+    {
+        switch (action)
+        {
+            case ChoiceAction.LoadScene:
+                UnityEngine.SceneManagement.SceneManager.LoadScene(actionValue);
+                return;
+            case ChoiceAction.GiveItem:
+                Inventory.Instance.AddItem(actionValue);
+                break;
+        }
+    }
 }
+
+

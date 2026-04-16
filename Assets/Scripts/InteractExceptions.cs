@@ -14,4 +14,12 @@ public class InteractExceptions : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
+    public void CheckDialogueState(int id)
+    {
+        if (id == 7)
+        {
+            talkedToyotomi = true;
+        }
+    }
 }
