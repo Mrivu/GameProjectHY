@@ -1,5 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TextCore.Text;
+
+public class Settings
+{
+    public FontAsset gameFont;
+}
 
 public class GameManager : MonoBehaviour
 {
