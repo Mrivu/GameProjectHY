@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 01b780f9bdf24e34fb9e5d8baf1d6dee
+guid: 60e8fe2ecff6ad14782d568dfb0387b1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4610823468830707477
-    second: SengokuInterior_0
+      213: 7910469352398247808
+    second: Bg01_Inside_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SengokuInterior_0
+      name: Bg01_Inside_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: be0bf4afb701300c0800000000000000
-      internalID: -4610823468830707477
+      spriteID: 087df4ce6f1a7cd60800000000000000
+      internalID: 7910469352398247808
       vertices: []
       indices: 
       edges: []

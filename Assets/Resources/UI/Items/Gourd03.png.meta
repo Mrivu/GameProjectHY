@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 60e7cbd7b2a1eb246be4fbe1b7f423b4
+guid: c4062d1ed7faf314bad8acc5246e8835
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2559223235414692365
-    second: HouseOutside_0
+      213: 651173702251477628
+    second: Gourd03_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HouseOutside_0
+      name: Gourd03_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 1059
+        y: 351
+        width: 55
+        height: 74
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3fd6e28d600db7cd0800000000000000
-      internalID: -2559223235414692365
+      spriteID: c7a76c9380f690900800000000000000
+      internalID: 651173702251477628
       vertices: []
       indices: 
       edges: []
