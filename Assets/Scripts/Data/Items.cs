@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class Items
 {
-    public static Item healingGourd = new Item(0, "Healing Gourd", Resources.Load<Sprite>("UI/Items/healing-gourd-Placeholder"));
+    public static Item healingGourd = new Item(0, "Healing Gourd", Resources.Load<Sprite>("UI/Items/Gourd03"));
 
     public static Dictionary<string, Item> items = new Dictionary<string, Item>()
     {
