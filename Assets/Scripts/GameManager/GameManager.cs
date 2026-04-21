@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
     public GameObject gameCanvas;
     public VideoPlayer videoPlayer;
 
+    public VideoClip introCutscene;
+
     public static GameManager Instance { get; private set; }
 
     void Awake()
@@ -38,9 +41,14 @@ public class GameManager : MonoBehaviour
     public void StartIntro()
     {
         gameCanvas.SetActive(false);
-        videoPlayer.clip = null;
+        videoPlayer.clip = introCutscene;
+        videoPlayer.loopPointReached += OnVideoFinished;
     }
 
+    void OnVideoFinished(VideoPlayer vp)
+    {
+        StartGame();
+    }
 
     private void OnEnable()
     {

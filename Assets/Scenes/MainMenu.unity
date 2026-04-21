@@ -616,6 +616,7 @@ MonoBehaviour:
   settings: {fileID: 502403896}
   gameCanvas: {fileID: 0}
   videoPlayer: {fileID: 0}
+  introCutscene: {fileID: 32900000, guid: 069e0d3bab79cea4089a8d7c7a3d952f, type: 3}
 --- !u!4 &502403894
 Transform:
   m_ObjectHideFlags: 0
