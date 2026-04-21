@@ -38,6 +38,8 @@ public class DialogueSystem : MonoBehaviour
     public float AnimationTime = 0.5f;
     private Coroutine DialogueAnimation;
 
+    public List<GameObject> charactersInScene = new List<GameObject>();
+
 
     [Header("Text")]
     public TMP_FontAsset font;
@@ -87,6 +89,11 @@ public class DialogueSystem : MonoBehaviour
         {
             textField.text = "";
 
+            foreach (GameObject character in charactersInScene)
+            {
+                character.SetActive(false);
+            }
+
             player.anchoredPosition = playerStart;
             talkTarget.anchoredPosition = talkTargetStart;
             textBox.anchoredPosition = textBoxStart;
@@ -94,6 +101,11 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
+            foreach (GameObject character in charactersInScene)
+            {
+                character.SetActive(true);
+            }
+
             player.anchoredPosition = playerGoal;
             talkTarget.anchoredPosition = talkTargetGoal;
             textBox.anchoredPosition = textBoxGoal;   
@@ -159,6 +171,7 @@ public class DialogueSystem : MonoBehaviour
             }
             else
             {
+                GameManager.Instance.audioManager.PlayTextSFX();
                 currentText++;
                 NewText();
             }

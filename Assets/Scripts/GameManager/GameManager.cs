@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class GameManager : MonoBehaviour
     public AudioManager audioManager;
 
     public Settings settings;
+
+    public GameObject gameCanvas;
+    public VideoPlayer videoPlayer;
 
     public static GameManager Instance { get; private set; }
 
@@ -31,6 +35,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("HouseInterior");
     }
 
+    public void StartIntro()
+    {
+        gameCanvas.SetActive(false);
+        videoPlayer.clip = null;
+    }
+
 
     private void OnEnable()
     {
@@ -46,6 +56,13 @@ public class GameManager : MonoBehaviour
     {
         pauseManager = GameObject.Find("PauseManager").GetComponent<PauseManager>();
         pauseManager.eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        pauseManager.canTogglePause = false;
+        gameCanvas = GameObject.Find("Canvas");
+
+        if (scene.name == "MainMenu")
+        {
+            videoPlayer = GameObject.Find("Video Player").GetComponent<VideoPlayer>();
+        }
 
         if (scene.name == "HouseInterior")
         {
@@ -76,6 +93,10 @@ public class GameManager : MonoBehaviour
         {
             settings.UpdateAll();
             inventory.FindSlots();
+
+            pauseManager.canTogglePause = true;
         }
+
+        audioManager.PlayMusic(scene.name);
     }
 }
