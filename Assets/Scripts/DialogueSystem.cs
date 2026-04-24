@@ -38,8 +38,11 @@ public class DialogueSystem : MonoBehaviour
     public float AnimationTime = 0.5f;
     private Coroutine DialogueAnimation;
 
+    public List<GameObject> charactersInScene = new List<GameObject>();
+
 
     [Header("Text")]
+    public TMP_FontAsset font;
     public TextMeshProUGUI textField;
     public float scrollSpeed = 1.0f;
     private Coroutine ScrollAnimation;
@@ -47,6 +50,7 @@ public class DialogueSystem : MonoBehaviour
     private int conversationId = 0;
     private string textToDisplay = "This is a placeholder";
     private bool choiceToMake = false;
+    public TextMeshProUGUI guideText;
 
     [Header("Choices")]
     public TextMeshProUGUI[] choices;
@@ -67,12 +71,28 @@ public class DialogueSystem : MonoBehaviour
         textBoxStart = new Vector2(textBoxGoal.x, textBoxGoal.y - 200);
     }
 
+    public void ApplyFont()
+    {
+        foreach (TextMeshProUGUI choice in choices)
+        {
+            choice.font = font;
+        }
+        textField.font = font;
+        guideText.font = font;
+    }
 
     public void StartDialogueAnimation(bool fadeIn, int conversationID)
     {
+        ApplyFont();
+
         if (fadeIn)
         {
             textField.text = "";
+
+            foreach (GameObject character in charactersInScene)
+            {
+                character.SetActive(false);
+            }
 
             player.anchoredPosition = playerStart;
             talkTarget.anchoredPosition = talkTargetStart;
@@ -81,6 +101,11 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
+            foreach (GameObject character in charactersInScene)
+            {
+                character.SetActive(true);
+            }
+
             player.anchoredPosition = playerGoal;
             talkTarget.anchoredPosition = talkTargetGoal;
             textBox.anchoredPosition = textBoxGoal;   
@@ -136,7 +161,7 @@ public class DialogueSystem : MonoBehaviour
 
     private void Update()
     {
-        if (InputControls.instance.advance.WasPressedThisFrame() && DialogueAnimation == null && !choiceToMake)
+        if (InputControls.Instance.advance.WasPressedThisFrame() && DialogueAnimation == null && !choiceToMake && !GameManager.Instance.pauseManager.gamePaused)
         {
             if (ScrollAnimation != null)
             {
@@ -146,6 +171,7 @@ public class DialogueSystem : MonoBehaviour
             }
             else
             {
+                GameManager.Instance.audioManager.PlayTextSFX();
                 currentText++;
                 NewText();
             }
@@ -333,7 +359,7 @@ public class DialogueSystem : MonoBehaviour
                 UnityEngine.SceneManagement.SceneManager.LoadScene(actionValue);
                 return;
             case ChoiceAction.GiveItem:
-                Inventory.Instance.AddItem(actionValue);
+                GameManager.Instance.inventory.AddItem(actionValue);
                 break;
         }
     }

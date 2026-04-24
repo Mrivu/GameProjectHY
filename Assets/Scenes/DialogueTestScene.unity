@@ -2661,7 +2661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7437f6ca72a2cd64f82ec790dc54b520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  conversations: ffffffff
+  conversations: 02000000
   conversationIndex: 0
   oneTime: 0
 --- !u!1 &1887503388
