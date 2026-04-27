@@ -12,15 +12,35 @@ public class Interact : MonoBehaviour, IPointerClickHandler
 
     public bool oneTime = false;
 
+    public ParticleSystem clueParticle;
+
+    void Update()
+    {
+        if (InputControls.Instance.clue.WasPressedThisFrame() && !GameManager.Instance.dialogueSystem.dialogueRunning && !GameManager.Instance.pauseManager.gamePaused)
+        {
+            clueParticle.Play();
+        }
+        if (InputControls.Instance.clue.WasReleasedThisFrame() || GameManager.Instance.dialogueSystem.dialogueRunning || GameManager.Instance.pauseManager.gamePaused)
+        {
+            clueParticle.Stop();
+        }
+    }
+
     void Start()
     {
+        clueParticle.Stop();
         dialogueSystem = GameManager.Instance.dialogueSystem;
+    }
+
+    void OnEnable()
+    {
+        clueParticle.Stop();
     }
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         // Text and exceptions
-        if (!dialogueSystem.dialogueRunning)
+        if (!dialogueSystem.dialogueRunning && !GameManager.Instance.pauseManager.gamePaused)
         {
             dialogueSystem.gameObject.SetActive(true);
 
@@ -35,10 +55,11 @@ public class Interact : MonoBehaviour, IPointerClickHandler
             }
 
             conversationIndex++;
-        }
-        if (oneTime)
-        {
-            gameObject.SetActive(false);
+
+            if (oneTime)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

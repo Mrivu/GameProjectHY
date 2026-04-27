@@ -109,6 +109,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Clue"",
+                    ""type"": ""Button"",
+                    ""id"": ""3164afca-e6f1-4df4-a15a-a41ff2dbc858"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -131,6 +140,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec6cd58d-e6ec-4627-9035-2a376e3c91bf"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Clue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -204,6 +224,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Controls = asset.FindActionMap("Controls", throwIfNotFound: true);
         m_Controls_Advance = m_Controls.FindAction("Advance", throwIfNotFound: true);
         m_Controls_Pause = m_Controls.FindAction("Pause", throwIfNotFound: true);
+        m_Controls_Clue = m_Controls.FindAction("Clue", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -286,6 +307,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private List<IControlsActions> m_ControlsActionsCallbackInterfaces = new List<IControlsActions>();
     private readonly InputAction m_Controls_Advance;
     private readonly InputAction m_Controls_Pause;
+    private readonly InputAction m_Controls_Clue;
     /// <summary>
     /// Provides access to input actions defined in input action map "Controls".
     /// </summary>
@@ -305,6 +327,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Controls/Pause".
         /// </summary>
         public InputAction @Pause => m_Wrapper.m_Controls_Pause;
+        /// <summary>
+        /// Provides access to the underlying input action "Controls/Clue".
+        /// </summary>
+        public InputAction @Clue => m_Wrapper.m_Controls_Clue;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -337,6 +363,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Clue.started += instance.OnClue;
+            @Clue.performed += instance.OnClue;
+            @Clue.canceled += instance.OnClue;
         }
 
         /// <summary>
@@ -354,6 +383,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Clue.started -= instance.OnClue;
+            @Clue.performed -= instance.OnClue;
+            @Clue.canceled -= instance.OnClue;
         }
 
         /// <summary>
@@ -473,5 +505,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPause(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Clue" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnClue(InputAction.CallbackContext context);
     }
 }

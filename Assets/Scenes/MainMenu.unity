@@ -2236,6 +2236,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6184181156633708331, guid: c636d793db301ac4186632cf3e4dbab5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -956.5834
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775587311216499577, guid: c636d793db301ac4186632cf3e4dbab5, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1964692955}
+    - target: {fileID: 8607309259620941923, guid: c636d793db301ac4186632cf3e4dbab5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

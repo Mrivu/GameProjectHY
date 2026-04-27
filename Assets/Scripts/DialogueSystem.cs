@@ -322,10 +322,13 @@ public class DialogueSystem : MonoBehaviour
 
         while (time < scrollSpeed)
         {
-            time += Time.deltaTime;
-            float t = time / scrollSpeed;
+            if (!GameManager.Instance.pauseManager.gamePaused)
+            {
+                time += Time.deltaTime;
+                float t = time / scrollSpeed;
 
-            target.text = text[0..(int)(textLen*t)];
+                target.text = text[0..(int)(textLen * t)];
+            }
 
             yield return null;
         }
