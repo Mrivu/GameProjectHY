@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
             {
                 // Dialogue at the start of the game
                 dialogueSystem.gameObject.SetActive(true);
-                dialogueSystem.StartDialogueAnimation(true, 5);
+                dialogueSystem.StartDialogueAnimation(true, 21);
             }
         }
 

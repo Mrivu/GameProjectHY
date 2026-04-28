@@ -92,7 +92,7 @@ public static class TextData
         // ID: 24, First conversation option with Hideyoshi, this will give +1 points
         {24, new ArrayList {
         new TextEntry("I agree. This land needs proper reforms if we are to ever have lasting peace and prosperity. " +
-            "We can't always be at war.", Mood.Default, Mood.Upset, Speaking.Toyotomi),
+            "We can't always be at war.", Mood.Default, Mood.Upset, Speaking.Toyotomi, ChoiceAction.GivePoints, "1"),
         new TextEntry("Anyways, why is it that you are looking to meet the healer? Surely your father " + 
             "and brother aren't back from the war yet.", Mood.Default, Mood.Default, Speaking.Toyotomi),
         new TextEntry("It's my mother...she is deeply sick...I'm not sure that she can survive much longer.", Mood.Default, Mood.Default, Speaking.Player),
@@ -145,7 +145,8 @@ public enum ChoiceAction
 {
     None,
     LoadScene,
-    GiveItem
+    GiveItem,
+    GivePoints
 }
 
 public class TextEntry

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -363,6 +364,9 @@ public class DialogueSystem : MonoBehaviour
                 return;
             case ChoiceAction.GiveItem:
                 GameManager.Instance.inventory.AddItem(actionValue);
+                break;
+            case ChoiceAction.GivePoints:
+                InteractExceptions.Instance.endingPoints += Int32.Parse(actionValue);
                 break;
         }
     }

@@ -49,6 +49,19 @@ public class Interact : MonoBehaviour, IPointerClickHandler
             {
                 dialogueSystem.StartDialogueAnimation(true, 3);
             }
+
+            // Talking to Toyotomi more than once
+            else if (conversations[conversationIndex % conversations.Count] == 23 && InteractExceptions.Instance.talkedToyotomi == true)
+            {
+                dialogueSystem.StartDialogueAnimation(true, 26);
+            }
+
+            // Interacting with the entrance to the 3rd before Hideyoshi has been talked to
+            else if (conversations[conversationIndex % conversations.Count] == 30 && InteractExceptions.Instance.talkedToyotomi == false)
+            {
+                dialogueSystem.StartDialogueAnimation(true, 22);
+            }
+
             else
             {
                 dialogueSystem.StartDialogueAnimation(true, conversations[conversationIndex % conversations.Count]);
