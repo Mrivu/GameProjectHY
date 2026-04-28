@@ -598,7 +598,7 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   clue:
-    m_Name: 
+    m_Name: Clue
     m_Type: 0
     m_ExpectedControlType: 
     m_Id: 5a8e5b83-2ddf-47f9-bfa2-0f0ee317c5c1
