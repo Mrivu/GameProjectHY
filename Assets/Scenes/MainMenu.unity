@@ -597,6 +597,15 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  clue:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5a8e5b83-2ddf-47f9-bfa2-0f0ee317c5c1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &502403893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1256,7 +1265,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1355,9 +1364,9 @@ MonoBehaviour:
   music: {fileID: 1422977225}
   sfx: {fileID: 1422977227}
   mainmenuMusic: {fileID: 8300000, guid: 008af5ed1e63641468ca2efbb31f928d, type: 3}
-  mainmenuMusic2: {fileID: 8300000, guid: 1f00a76ad35e5194a805db5b593d364c, type: 3}
-  textSfx: {fileID: 8300000, guid: cefdfec2a262bd040847c10c67efc777, type: 3}
+  interior: {fileID: 8300000, guid: 1f00a76ad35e5194a805db5b593d364c, type: 3}
   townAmbience: {fileID: 8300000, guid: b7cdbc6316b57b949a133ce2c97bd307, type: 3}
+  textSfx: {fileID: 8300000, guid: cefdfec2a262bd040847c10c67efc777, type: 3}
 --- !u!82 &1422977227
 AudioSource:
   m_ObjectHideFlags: 0
