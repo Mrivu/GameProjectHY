@@ -8,10 +8,11 @@ public class AudioManager : MonoBehaviour
 
     [Header("Audio Clips")]
     public AudioClip mainmenuMusic;
-    public AudioClip mainmenuMusic2;
 
-    public AudioClip textSfx;
+    public AudioClip interior;
     public AudioClip townAmbience;
+    
+    public AudioClip textSfx;
 
     // Singleton
     public static AudioManager Instance { get; private set; }
@@ -25,7 +26,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        music.volume = volume/100.0f;
+        music.volume = volume/400.0f;
         sfx.volume = volume/100.0f;
     }
 
@@ -40,11 +41,11 @@ public class AudioManager : MonoBehaviour
         switch (sceneName)
         {
             case "MainMenu":
-                music.clip = mainmenuMusic2;
+                music.clip = mainmenuMusic;
                 music.Play(); break;
             case "HouseInterior":
-                music.clip = null;
-                music.Stop(); break;
+                music.clip = interior;
+                music.Play(); break;
             case "HouseOutside":
                 music.clip = townAmbience;
                 music.Play(); break;

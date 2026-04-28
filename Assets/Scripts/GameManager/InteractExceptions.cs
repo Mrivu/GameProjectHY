@@ -5,6 +5,8 @@ public class InteractExceptions : MonoBehaviour
 {
     public static InteractExceptions Instance { get; private set; }
 
+    public int endingPoints = 0;
+
     public bool pickedUpGourd = false;
     public bool talkedToyotomi = false;
 
@@ -17,7 +19,7 @@ public class InteractExceptions : MonoBehaviour
 
     public void CheckDialogueState(int id)
     {
-        if (id == 7)
+        if (id == 23)
         {
             talkedToyotomi = true;
         }

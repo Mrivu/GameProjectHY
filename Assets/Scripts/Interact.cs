@@ -12,15 +12,35 @@ public class Interact : MonoBehaviour, IPointerClickHandler
 
     public bool oneTime = false;
 
+    public ParticleSystem clueParticle;
+
+    void Update()
+    {
+        if (InputControls.Instance.clue.WasPressedThisFrame() && !GameManager.Instance.dialogueSystem.dialogueRunning && !GameManager.Instance.pauseManager.gamePaused)
+        {
+            clueParticle.Play();
+        }
+        if (InputControls.Instance.clue.WasReleasedThisFrame() || GameManager.Instance.dialogueSystem.dialogueRunning || GameManager.Instance.pauseManager.gamePaused)
+        {
+            clueParticle.Stop();
+        }
+    }
+
     void Start()
     {
+        clueParticle.Stop();
         dialogueSystem = GameManager.Instance.dialogueSystem;
+    }
+
+    void OnEnable()
+    {
+        clueParticle.Stop();
     }
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         // Text and exceptions
-        if (!dialogueSystem.dialogueRunning)
+        if (!dialogueSystem.dialogueRunning && !GameManager.Instance.pauseManager.gamePaused)
         {
             dialogueSystem.gameObject.SetActive(true);
 
@@ -29,16 +49,30 @@ public class Interact : MonoBehaviour, IPointerClickHandler
             {
                 dialogueSystem.StartDialogueAnimation(true, 3);
             }
+
+            // Talking to Toyotomi more than once
+            else if (conversations[conversationIndex % conversations.Count] == 23 && InteractExceptions.Instance.talkedToyotomi == true)
+            {
+                dialogueSystem.StartDialogueAnimation(true, 26);
+            }
+
+            // Interacting with the entrance to the 3rd before Hideyoshi has been talked to
+            else if (conversations[conversationIndex % conversations.Count] == 30 && InteractExceptions.Instance.talkedToyotomi == false)
+            {
+                dialogueSystem.StartDialogueAnimation(true, 22);
+            }
+
             else
             {
                 dialogueSystem.StartDialogueAnimation(true, conversations[conversationIndex % conversations.Count]);
             }
 
             conversationIndex++;
-        }
-        if (oneTime)
-        {
-            gameObject.SetActive(false);
+
+            if (oneTime)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

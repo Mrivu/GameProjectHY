@@ -9,12 +9,13 @@ public class InputControls : MonoBehaviour
     // Inputs
     public InputAction advance;
     public InputAction pause;
-
+    public InputAction clue;
 
     private void Start()
     {
         advance = inputActions.Controls.Advance;
         pause = inputActions.Controls.Pause;
+        clue = inputActions.Controls.Clue;
     }
 
 

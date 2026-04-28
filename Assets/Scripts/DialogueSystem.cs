@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -322,10 +323,13 @@ public class DialogueSystem : MonoBehaviour
 
         while (time < scrollSpeed)
         {
-            time += Time.deltaTime;
-            float t = time / scrollSpeed;
+            if (!GameManager.Instance.pauseManager.gamePaused)
+            {
+                time += Time.deltaTime;
+                float t = time / scrollSpeed;
 
-            target.text = text[0..(int)(textLen*t)];
+                target.text = text[0..(int)(textLen * t)];
+            }
 
             yield return null;
         }
@@ -360,6 +364,9 @@ public class DialogueSystem : MonoBehaviour
                 return;
             case ChoiceAction.GiveItem:
                 GameManager.Instance.inventory.AddItem(actionValue);
+                break;
+            case ChoiceAction.GivePoints:
+                InteractExceptions.Instance.endingPoints += Int32.Parse(actionValue);
                 break;
         }
     }
