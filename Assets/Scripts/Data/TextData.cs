@@ -121,7 +121,7 @@ public static class TextData
         new TextEntry("Make sure to head to that abandoned building to meet my friend. " + 
         "You need her help in order to meet with the healer.", Mood.Default, Mood.Default, Speaking.Toyotomi),
         }},
-        // ID: 27, Interacting with the path forward before heading into the new building
+        // ID: 27, Interacting with the path towards the fourth scene before heading into the new building
         {27, new ArrayList {
         new TextEntry("I need to see the person that Hideyoshi told me about.", Mood.Default, Mood.None, Speaking.Player),
         }},
@@ -136,7 +136,12 @@ public static class TextData
         // ID 30: Interacting with the entrance to the 3rd scene once Hideyoshi has been talked to
         {30, new ArrayList {
         new TextEntry("I am ready to meet Hideyoshi's friend.", Mood.Default, Mood.None, Speaking.Player),
+        new DialogueChoices(new List<DialogueChoice> {
+            new DialogueChoice("1. Go inside.", -1, ChoiceAction.LoadScene, "AbandonedHouse"),
+            new DialogueChoice("2. Stay.", -1)})
         }},
+
+        // ID: 51: Start of Scene 3
     };
 
 }
