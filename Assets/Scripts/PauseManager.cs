@@ -17,21 +17,32 @@ public class PauseManager : MonoBehaviour
     public TextMeshProUGUI resSetting;
     public TextMeshProUGUI volSetting;
 
-    private void Update()
+    private void Start()
     {
-        if (InputControls.Instance.pause.WasPressedThisFrame())
-        {
-            TogglePause();
-        }
+        // 
+        gamePaused = false;
+
+        if (pauseCanvas != null)
+            pauseCanvas.SetActive(false);
+
+        if (settingsCanvas != null)
+            settingsCanvas.SetActive(false);
     }
 
     public void TogglePause()
     {
         if (canTogglePause)
         {
-            eventSystem.SetSelectedGameObject(null);
+            // 
+            if (eventSystem != null)
+                eventSystem.SetSelectedGameObject(null);
+
             gamePaused = !gamePaused;
-            pauseCanvas.SetActive(gamePaused);
+
+            if (pauseCanvas != null)
+                pauseCanvas.SetActive(gamePaused);
+
+           
         }
     }
 
@@ -43,37 +54,55 @@ public class PauseManager : MonoBehaviour
         }
 
         canTogglePause = !openSettings;
-        if (gamePaused)
+
+        if (gamePaused && pauseCanvas != null)
         {
             pauseCanvas.SetActive(!openSettings);
         }
-        settingsCanvas.SetActive(openSettings);
+
+        if (settingsCanvas != null)
+        {
+            settingsCanvas.SetActive(openSettings);
+        }
     }
 
     public void UpdateSettingButtons()
     {
-        fontSetting.font = GameManager.Instance.settings.GetCurrentFont();
-        resSetting.text = GameManager.Instance.settings.GetCurrentResolution().ToString();
-        volSetting.text = GameManager.Instance.settings.GetCurrentVolume().ToString() + "%";
+        if (fontSetting != null)
+            fontSetting.font = GameManager.Instance.settings.GetCurrentFont();
+
+        if (resSetting != null)
+            resSetting.text = GameManager.Instance.settings.GetCurrentResolution().ToString();
+
+        if (volSetting != null)
+            volSetting.text = GameManager.Instance.settings.GetCurrentVolume().ToString() + "%";
     }
 
     public void ChangeFont()
     {
-        GameManager.Instance.settings.selectedFont = (GameManager.Instance.settings.selectedFont+1) % GameManager.Instance.settings.gameFonts.Count;
+        GameManager.Instance.settings.selectedFont =
+            (GameManager.Instance.settings.selectedFont + 1) %
+            GameManager.Instance.settings.gameFonts.Count;
+
         GameManager.Instance.settings.UpdateFont();
         UpdateSettingButtons();
     }
 
     public void ChangeResolution()
     {
-        GameManager.Instance.settings.selectedResolution = (GameManager.Instance.settings.selectedResolution + 1) % GameManager.Instance.settings.resolutions.Count;
+        GameManager.Instance.settings.selectedResolution =
+            (GameManager.Instance.settings.selectedResolution + 1) %
+            GameManager.Instance.settings.resolutions.Count;
+
         GameManager.Instance.settings.UpdateResolution();
         UpdateSettingButtons();
     }
 
     public void ChangeVolume()
     {
-        GameManager.Instance.settings.volume = (GameManager.Instance.settings.volume + 10) % 110.0f;
+        GameManager.Instance.settings.volume =
+            (GameManager.Instance.settings.volume + 10) % 110.0f;
+
         GameManager.Instance.settings.UpdateVolume();
         UpdateSettingButtons();
     }

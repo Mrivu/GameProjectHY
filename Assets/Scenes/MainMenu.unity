@@ -565,6 +565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc12bccddf3dd24193140358835495f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractExceptions
+  endingPoints: 0
   pickedUpGourd: 0
   talkedToyotomi: 0
 --- !u!114 &502403892
@@ -2201,6 +2202,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 30959289505606851, guid: c636d793db301ac4186632cf3e4dbab5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1068316965341940767, guid: c636d793db301ac4186632cf3e4dbab5, type: 3}
       propertyPath: m_Name
       value: PauseGame
