@@ -19,7 +19,7 @@ public enum Speaking
 {
     Player, // 0
     Toyotomi, // 1
-    NPC2, // 2...
+    Rogue, // 2
     NPC3
 }
 
@@ -33,7 +33,7 @@ public static class TextData
         // ID: 0, Intro dialogue, played directly after the Main Menu
         {0, new ArrayList {
         new TextEntry("Her sickness has spread even further...she cannot survive for much longer like this...", Mood.Default, Mood.None, Speaking.Player),
-        new TextEntry("There have been rumours of a healer visiting the temple. I have to try to get a cure for her there.", Mood.Default, Mood.None, Speaking.Player),
+        new TextEntry("There have been rumours of a healer visiting the shrine. I have to try to get a cure for her there.", Mood.Default, Mood.None, Speaking.Player),
         new TextEntry("Ah, of course. I should take the healing gourd with me in order to have something to carry the cure in.", Mood.Upset, Mood.None, Speaking.Player),
         }},
         // ID: 1, Interacting with the gourd
@@ -52,7 +52,7 @@ public static class TextData
         }},
         // ID: 4, Interacting with the door after picking up the gourd
         {4, new ArrayList {
-        new TextEntry("I'm ready to head out to the temple.", Mood.Default, Mood.None, Speaking.Player),
+        new TextEntry("I'm ready to head out to the shrine.", Mood.Default, Mood.None, Speaking.Player),
         new DialogueChoices(new List<DialogueChoice> {
             new DialogueChoice("1. Go outside.", -1, ChoiceAction.LoadScene, "HouseOutside"),
             new DialogueChoice("2. Stay.", -1)})
@@ -87,9 +87,9 @@ public static class TextData
             "for their own gain.", Mood.Upset, Mood.Upset, Speaking.Toyotomi),
         new DialogueChoices(new List<DialogueChoice> {
             new DialogueChoice("1. I wish there was real change...", 24),
-            new DialogueChoice("2. I hope that father and brother are okay...", 25)}),
+            new DialogueChoice("2. I hope that father and brother are okay...", 25)})
         }},
-        // ID: 24, First conversation option with Hideyoshi, this will give +1 points
+        // ID: 24, First conversation option with Hideyoshi, +1 points awarded
         {24, new ArrayList {
         new TextEntry("I agree. This land needs proper reforms if we are to ever have lasting peace and prosperity. " +
             "We can't always be at war.", Mood.Default, Mood.Upset, Speaking.Toyotomi, ChoiceAction.GivePoints, "1"),
@@ -118,7 +118,7 @@ public static class TextData
         }},
         // ID 26: Summarised version of the conversation with Hideyoshi
         {26, new ArrayList {
-        new TextEntry("Make sure to head to that abandoned building to meet my friend. " + 
+        new TextEntry("Make sure to head into that abandoned building to meet my friend. " + 
         "You need her help in order to meet with the healer.", Mood.Default, Mood.Default, Speaking.Toyotomi),
         }},
         // ID: 27, Interacting with the path towards the fourth scene before heading into the new building
@@ -140,8 +140,87 @@ public static class TextData
             new DialogueChoice("1. Go inside.", -1, ChoiceAction.LoadScene, "AbandonedHouse"),
             new DialogueChoice("2. Stay.", -1)})
         }},
+        // ID 31: Talking with Hideyoshi after coming back from the Abandoned House and/or Shrine, this conversation will/can give +1 points
+        {31, new ArrayList {
+        // Note to remember to finish this!!!!!
+        new TextEntry("Hideyoshi.", Mood.Default, Mood.Default, Speaking.Player),
+        }},
+        // ID 32: Interacting with the sign post in order to go to the shrine after picking up the Kagura suzu in Scene 3
+        {32, new ArrayList {
+        new TextEntry("I'm ready to meet with the miko. The shrine is further out from the village but walking there shouldn't take too long.", Mood.Smile, Mood.None, Speaking.Player),
+        new DialogueChoices(new List<DialogueChoice> {
+            new DialogueChoice("1. Head out towards the shrine.", -1, ChoiceAction.LoadScene, "Shrine"),
+            new DialogueChoice("2. Stay.", -1)})
+        }},
 
-        // ID: 51: Start of Scene 3
+        // ID: 51: Entering Scene 3 for the first time
+        {51, new ArrayList {
+        new TextEntry("I always wondered about this house, it has been abandoned for as long as I can remember.", Mood.Default, Mood.None, Speaking.Player),
+        new TextEntry("It feels eerie even on the inside.", Mood.Default, Mood.None, Speaking.Player),
+        new TextEntry("Anyways, time to see what Hideyoshi's friend has to say. Her clothes seem really odd though...", Mood.Default, Mood.None, Speaking.Player),
+        new TextEntry("She couldn't be a ninja, could she?!?", Mood.Surprised, Mood.None, Speaking.Player),
+        }},
+        // ID: 52: Interacting with the Kagura suzu before interacting with the Rogue
+        {52, new ArrayList {
+        new TextEntry("It looks beautiful...I wonder what it is for.", Mood.Smile, Mood.None, Speaking.Player),
+        }},
+        // ID: 53: Talking to the Rogue
+        {53, new ArrayList {
+        new TextEntry("Hello...Hideyoshi told me to come talk to you...", Mood.Default, Mood.Default, Speaking.Player),
+        new TextEntry("Hey.", Mood.Default, Mood.Default, Speaking.Rogue),
+        new TextEntry("What do you need?.", Mood.Default, Mood.Default, Speaking.Rogue),
+        new TextEntry("Umm...Hideyoshi told me that you could help me.", Mood.Surprised, Mood.Default, Speaking.Player),
+        new TextEntry("With what?", Mood.Surprised, Mood.Default, Speaking.Rogue),
+        new TextEntry("My mother is sick...and I heard that there is a healer in town. Please...I need your help in order to reach her...", Mood.Default, Mood.Default, Speaking.Player),
+        new TextEntry("Oh. You should've said so immediately. Of course I'll help you!", Mood.Default, Mood.Smile, Speaking.Rogue),
+        new TextEntry("Thank you so much.", Mood.Happy, Mood.Smile, Speaking.Player),
+        new TextEntry("So, reaching the healer is not the problem. Convincing her to help you is.", Mood.Smile, Mood.Default, Speaking.Rogue),
+        new TextEntry("However, I have something here that will help with that. It's a Kagura suzu. And not just any Kagura suzu, " +
+            "but the one that was once used by the celestial goddess Amenouzume.", Mood.Smile, Mood.Upset, Speaking.Rogue),
+        // Note that the upset expression is based on the expectation that the upset expression is the one in the fourth picture on Discord, which is fitting of the mood here due to its seriousness
+        new TextEntry("That is if you believe in such myths. I certainly don't.", Mood.Smile, Mood.Smile, Speaking.Rogue),
+        new DialogueChoices(new List<DialogueChoice> {
+            new DialogueChoice("1. I don't believe in them either.", 54),
+            new DialogueChoice("2. The Goddesses are worthy of respect even if you don't personally believe in them.", 55)})
+        }},
+        // ID: 54, First conversation option with the Rogue, does not award a point
+        {54, new ArrayList {
+        new TextEntry("I'm glad we agree.", Mood.Smile, Mood.Smile, Speaking.Rogue),
+        new TextEntry("Anyways, you should take the Kagura suzu and present it to the healer who is at the shrine. She is normally very " +
+            "apprehensive of strangers but this should change things since she is a miko and will certainly appreciate it.", Mood.Smile, Mood.Default, Speaking.Rogue),
+        new TextEntry("Thank you so much for your help!", Mood.Happy, Mood.Smile, Speaking.Player),
+        new TextEntry("You're very welcome. Good luck on your journey and I hope your father and brother are able to return safely as well!", Mood.Happy, Mood.Default, Speaking.Rogue),
+        new TextEntry("...?", Mood.Surprised, Mood.Default, Speaking.Player),
+        }},
+        // ID: 55, Second conversation option with the Rogue, +1 points awarded
+        {55, new ArrayList {
+        new TextEntry("I suppose you are right. I should do better than to be disrespectful towards the Goddesses.", Mood.Smile, Mood.Default, Speaking.Rogue, ChoiceAction.GivePoints, "1"),
+        new TextEntry("Anyways, you should take the Kagura suzu and present it to the healer who is at the shrine. She is normally very " +
+            "apprehensive of strangers but this should change things since she is a miko and will certainly appreciate it.", Mood.Smile, Mood.Default, Speaking.Rogue),
+        new TextEntry("Thank you so much for your help!", Mood.Happy, Mood.Smile, Speaking.Player),
+        new TextEntry("You're very welcome. Good luck on your journey and I hope your father and brother are able to return safely as well!", Mood.Happy, Mood.Default, Speaking.Rogue),
+        new TextEntry("...?", Mood.Surprised, Mood.Default, Speaking.Player),
+        }},
+        // ID: 56, Summarised conversation with the Rogue after the fact
+        {56, new ArrayList {
+        new TextEntry("I truly hope that the shrine maiden will appreciate the Kagura suzu.", Mood.Smile, Mood.Default, Speaking.Rogue),
+        }},
+        // ID: 57, Interacting with the Kagura suzu after the conversation
+        {57, new ArrayList {
+        new TextEntry("It truly is stunningly beautiful. I wonder if it truly could be Amenouzume's.", Mood.Smile, Mood.None, Speaking.Player),
+        new TextEntry("Well time to take it with me and head to the shrine.", Mood.Smile, Mood.None, Speaking.Player),
+        new DialogueChoices(new List<DialogueChoice> {
+            new DialogueChoice("1. Pick up the Kagura suzu.", -1, ChoiceAction.GiveItem, "Bell"),
+            new DialogueChoice("2. Leave it be.", -1)})
+        }},
+        // ID: 58, Interacting with the door in order to leave
+        {58, new ArrayList {
+        new TextEntry("I should head out.", Mood.Default, Mood.None, Speaking.Player),
+        new DialogueChoices(new List<DialogueChoice> {
+            new DialogueChoice("1. Go outside.", -1, ChoiceAction.LoadScene, "HouseOutside"),
+            new DialogueChoice("2. Stay.", -1)})
+        }},
+
     };
 
 }
