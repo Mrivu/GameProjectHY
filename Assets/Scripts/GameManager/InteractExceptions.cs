@@ -9,6 +9,12 @@ public class InteractExceptions : MonoBehaviour
 
     public bool pickedUpGourd = false;
     public bool talkedToyotomi = false;
+    public bool pickedUpKaguraSuzu = false;
+    public bool talkedRogue = false;
+
+
+    public bool firstTimeHouseOutside = true;
+    public bool firstTimeAbandonedHouse = true;
 
     void Awake()
     {
@@ -22,6 +28,22 @@ public class InteractExceptions : MonoBehaviour
         if (id == 23)
         {
             talkedToyotomi = true;
+        }
+
+        if (id == 53)
+        {
+            talkedRogue = true;
+        }
+
+
+        if (id == 21)
+        {
+            firstTimeHouseOutside = false;
+        }
+
+        if (id == 51)
+        {
+            firstTimeAbandonedHouse = false;
         }
     }
 }

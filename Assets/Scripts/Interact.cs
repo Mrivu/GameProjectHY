@@ -1,5 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -39,6 +41,8 @@ public class Interact : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
+        conversationIndex++;
+
         // Text and exceptions
         if (!dialogueSystem.dialogueRunning && !GameManager.Instance.pauseManager.gamePaused)
         {
@@ -62,16 +66,38 @@ public class Interact : MonoBehaviour, IPointerClickHandler
                 dialogueSystem.StartDialogueAnimation(true, 22);
             }
 
+            // Interacting with the sign post in order to go to the shrine after picking up the Kagura suzu in Scene 3
+            else if (conversations[conversationIndex % conversations.Count] == 32 && InteractExceptions.Instance.talkedToyotomi == false)
+            {
+                dialogueSystem.StartDialogueAnimation(true, 22);
+            }
+
+            // Interacting with the sign post in order to go to the shrine after picking up the Kagura suzu in Scene 3
+            else if (conversations[conversationIndex % conversations.Count] == 32 && InteractExceptions.Instance.pickedUpKaguraSuzu == false)
+            {
+                dialogueSystem.StartDialogueAnimation(true, 27);
+            }
+
+            // Interacting with the Kagura suzu before interacting with the Rogue
+            else if (conversations[conversationIndex % conversations.Count] == 57 && InteractExceptions.Instance.talkedRogue == false)
+            {
+                dialogueSystem.StartDialogueAnimation(true, 52);
+            }
+
+            // Talking to Toyotomi more than once
+            else if (conversations[conversationIndex % conversations.Count] == 53 && InteractExceptions.Instance.talkedRogue == true)
+            {
+                dialogueSystem.StartDialogueAnimation(true, 56);
+            }
+
             else
             {
                 dialogueSystem.StartDialogueAnimation(true, conversations[conversationIndex % conversations.Count]);
-            }
 
-            conversationIndex++;
-
-            if (oneTime)
-            {
-                gameObject.SetActive(false);
+                if (oneTime)
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
     }

@@ -208,10 +208,7 @@ public static class TextData
         // ID: 57, Interacting with the Kagura suzu after the conversation
         {57, new ArrayList {
         new TextEntry("It truly is stunningly beautiful. I wonder if it truly could be Amenouzume's.", Mood.Smile, Mood.None, Speaking.Player),
-        new TextEntry("Well time to take it with me and head to the shrine.", Mood.Smile, Mood.None, Speaking.Player),
-        new DialogueChoices(new List<DialogueChoice> {
-            new DialogueChoice("1. Pick up the Kagura suzu.", -1, ChoiceAction.GiveItem, "Bell"),
-            new DialogueChoice("2. Leave it be.", -1)})
+        new TextEntry("Well time to take it with me and head to the shrine.", Mood.Smile, Mood.None, Speaking.Player, ChoiceAction.GiveItem, "Bell"),
         }},
         // ID: 58, Interacting with the door in order to leave
         {58, new ArrayList {

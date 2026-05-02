@@ -89,6 +89,7 @@ public class DialogueSystem : MonoBehaviour
         if (fadeIn)
         {
             textField.text = "";
+            talkTarget.gameObject.SetActive(false);
 
             foreach (GameObject character in charactersInScene)
             {

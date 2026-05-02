@@ -88,11 +88,31 @@ public class GameManager : MonoBehaviour
         {
             dialogueSystem = GameObject.Find("DialogueSystem").GetComponent<DialogueSystem>();
 
-            if (dialogueSystem != null)
+            if (dialogueSystem != null && InteractExceptions.Instance.firstTimeHouseOutside)
             {
                 // Dialogue at the start of the game
                 dialogueSystem.gameObject.SetActive(true);
                 dialogueSystem.StartDialogueAnimation(true, 21);
+            }
+            else
+            {
+                dialogueSystem.gameObject.SetActive(false);
+            }
+        }
+
+        if (scene.name == "AbandonedHouse")
+        {
+            dialogueSystem = GameObject.Find("DialogueSystem").GetComponent<DialogueSystem>();
+
+            if (dialogueSystem != null && InteractExceptions.Instance.firstTimeAbandonedHouse)
+            {
+                // Dialogue at the start of the game
+                dialogueSystem.gameObject.SetActive(true);
+                dialogueSystem.StartDialogueAnimation(true, 51);
+            }
+            else
+            {
+                dialogueSystem.gameObject.SetActive(false);
             }
         }
 
