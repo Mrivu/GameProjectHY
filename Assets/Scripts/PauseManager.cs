@@ -19,7 +19,6 @@ public class PauseManager : MonoBehaviour
 
     private void Start()
     {
-        // 
         gamePaused = false;
 
         if (pauseCanvas != null)
@@ -33,16 +32,18 @@ public class PauseManager : MonoBehaviour
     {
         if (canTogglePause)
         {
-            // 
             if (eventSystem != null)
+            {
                 eventSystem.SetSelectedGameObject(null);
+            }
 
             gamePaused = !gamePaused;
 
             if (pauseCanvas != null)
+            {
                 pauseCanvas.SetActive(gamePaused);
+            }
 
-           
         }
     }
 
