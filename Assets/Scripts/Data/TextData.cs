@@ -9,7 +9,7 @@ public enum Mood
 {
     None, // None means don't show this character - 0
     Default, // 1
-    Surprised, // 2...
+    Surprised, // 2
     Smile,
     Happy,
     Upset
@@ -20,7 +20,7 @@ public enum Speaking
     Player, // 0
     Toyotomi, // 1
     Rogue, // 2
-    NPC3
+    Maiden
 }
 
 public static class TextData
@@ -203,7 +203,7 @@ public static class TextData
         }},
         // ID: 56, Summarised conversation with the Rogue after the fact
         {56, new ArrayList {
-        new TextEntry("I truly hope that the shrine maiden will appreciate the Kagura suzu.", Mood.Smile, Mood.Default, Speaking.Rogue),
+        new TextEntry("I truly hope that the shrine maiden will appreciate the Kagura suzu and that you will get the help you need.", Mood.Smile, Mood.Default, Speaking.Rogue),
         }},
         // ID: 57, Interacting with the Kagura suzu after the conversation
         {57, new ArrayList {
@@ -221,6 +221,15 @@ public static class TextData
             new DialogueChoice("2. Stay.", -1)})
         }},
 
+        // ID 71, Entering the Shrine for the first time
+        {71, new ArrayList {
+        new TextEntry("This place is even more beautiful than I expected. And it feels special...", Mood.Smile, Mood.None, Speaking.Player),
+        new TextEntry("I really hope that the shrine maiden can help mother...", Mood.Default, Mood.None, Speaking.Player),
+        }},
+        // ID 72, Talking to the Shrine Maiden
+        {72, new ArrayList {
+        new TextEntry("Oh, hello. Why are you here?", Mood.Default, Mood.Default, Speaking.Maiden),
+        }},
     };
 
 }
