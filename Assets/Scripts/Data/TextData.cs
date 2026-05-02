@@ -1,9 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public enum Mood
 {

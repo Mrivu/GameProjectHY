@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using UnityEngine.TextCore.Text;
 using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour

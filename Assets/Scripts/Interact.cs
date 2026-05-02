@@ -1,7 +1,4 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -99,6 +96,8 @@ public class Interact : MonoBehaviour, IPointerClickHandler
                     gameObject.SetActive(false);
                 }
             }
+
+            
         }
     }
 }
