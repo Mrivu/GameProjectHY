@@ -104,6 +104,11 @@ public class GameManager : MonoBehaviour
         {
             dialogueSystem = GameObject.Find("DialogueSystem").GetComponent<DialogueSystem>();
 
+            if (InteractExceptions.Instance.pickedUpKaguraSuzu)
+            {
+                GameObject.Find("Bell").SetActive(false);
+            }
+
             if (dialogueSystem != null && InteractExceptions.Instance.firstTimeAbandonedHouse)
             {
                 // Dialogue at the start of the game
