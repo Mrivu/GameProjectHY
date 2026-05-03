@@ -269,11 +269,14 @@ public class DialogueSystem : MonoBehaviour
             int choiceID = 0;
             foreach (var choice in dialogueChoices.choices)
             {
-                choices[choiceID].gameObject.SetActive(true);
-                newDialogues.Add((choice.nextDialogueID, choice.action, choice.actionValue));
-                StartCoroutine(ScrollText(choice.text, choices[choiceID]));
+                if (choice.pointsValue <= InteractExceptions.Instance.endingPoints)
+                {
+                    choices[choiceID].gameObject.SetActive(true);
+                    newDialogues.Add((choice.nextDialogueID, choice.action, choice.actionValue));
+                    StartCoroutine(ScrollText(choice.text, choices[choiceID]));
 
-                choiceID++;
+                    choiceID++;
+                }
             }
 
         }

@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game/AbandonedHouse.unity
     guid: fd49ba5f00d6230439b61d5ce0d69115
+  - enabled: 1
+    path: Assets/Scenes/Game/Shrine.unity
+    guid: 861ecf42bf4221d46b0975b6ce235d3b
+  - enabled: 1
+    path: Assets/Scenes/Game/Ending.unity
+    guid: 3b2797ef7cc4f4244bbd5c5c0b3379c7
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 8bf8243b818e6ae469cfcb9c834fe98a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

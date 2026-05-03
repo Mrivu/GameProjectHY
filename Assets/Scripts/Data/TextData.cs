@@ -68,10 +68,10 @@ public static class TextData
         new TextEntry("I should let her drink from the gourd.", Mood.Default, Mood.None, Speaking.Player),
         new TextEntry("...", Mood.Default, Mood.None, Speaking.Player),
         new DialogueChoices(new List<DialogueChoice> {
-            new DialogueChoice("1. It is time for me to accept that she might not make it.", 8), 
-            //This would require 4/5 or more of the points to be able to be chosen, it could be highlighted in some way to make it clear if possible
-            new DialogueChoice("2. I am so sorry that I could not do more for you...", 9)}) 
+            new DialogueChoice("1. [Bad Ending] I am so sorry that I could not do more for you...", 9), 
             // This is the only option available if the player is at less than 4/5 points
+            new DialogueChoice("2. [Good Ending] It is time for me to accept that she might not make it.", 8, ChoiceAction.None, "", 4)})
+            //This would require 4/5 or more of the points to be able to be chosen, it could be highlighted in some way to make it clear if possible
         }},
         // ID 8, Good ending dialogue
         {8, new ArrayList {
@@ -325,9 +325,13 @@ public static class TextData
         {76, new ArrayList {
         new TextEntry("It's time to head back home...", Mood.Default, Mood.None, Speaking.Player),
         new DialogueChoices(new List<DialogueChoice> {
-            new DialogueChoice("1. Head back.", -1, ChoiceAction.LoadScene, "HouseInterior"),
+            new DialogueChoice("1. Head back.", -1, ChoiceAction.LoadScene, "Ending"),
             new DialogueChoice("2. Stay.", -1)})
         }},
+        // ID 77, Heading back from the shrine without talking to Miko
+        {77, new ArrayList {
+        new TextEntry("I need to talk to the miko.", Mood.Default, Mood.None, Speaking.Player),
+        }}
     };
 
 }
@@ -371,12 +375,15 @@ public class DialogueChoice
     public ChoiceAction action;
     public string actionValue;
 
-    public DialogueChoice(string text, int nextDialogueId, ChoiceAction action = ChoiceAction.None, string actionValue = "")
+    public int pointsValue;
+
+    public DialogueChoice(string text, int nextDialogueId, ChoiceAction action = ChoiceAction.None, string actionValue = "", int pointsValue = 0)
     {
         this.text = text;
         this.nextDialogueID = nextDialogueId;
         this.action = action;
         this.actionValue = actionValue;
+        this.pointsValue = pointsValue;
     }
 }
 

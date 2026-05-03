@@ -6,10 +6,11 @@ public static class AssetData
     public static Player player = new Player();
     public static Toyotomi toyotomi = new Toyotomi();
     public static Rogue rogue = new Rogue();
+    public static Miko miko = new Miko();
 
     public static List<Character> characters = new List<Character>()
     {
-        player, toyotomi, rogue
+        player, toyotomi, rogue, miko
     };
 }
 
@@ -69,5 +70,19 @@ public class Rogue : Character
         moods[3] = Resources.Load<Sprite>("Characters/Rogue/rogue_happy");
         moods[4] = Resources.Load<Sprite>("Characters/Rogue/rogue_happy");
         moods[5] = Resources.Load<Sprite>("Characters/Rogue/rogue_upset");
+    }
+}
+
+public class Miko : Character
+{
+    public Miko() : base("Miko")
+    {
+        // Replace with unique to character
+        moods[0] = Resources.Load<Sprite>("Characters/Miko/miko_base");
+        moods[1] = Resources.Load<Sprite>("Characters/Miko/miko_base");
+        moods[2] = Resources.Load<Sprite>("Characters/Miko/miko_surprised");
+        moods[3] = Resources.Load<Sprite>("Characters/Miko/miko_smile");
+        moods[4] = Resources.Load<Sprite>("Characters/Miko/miko_happy");
+        moods[5] = Resources.Load<Sprite>("Characters/Miko/miko_angry");
     }
 }

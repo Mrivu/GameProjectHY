@@ -49,6 +49,15 @@ public class AudioManager : MonoBehaviour
             case "HouseOutside":
                 music.clip = townAmbience;
                 music.Play(); break;
+            case "AbandonedHouse":
+                music.clip = townAmbience;
+                music.Play(); break;
+            case "Shrine":
+                music.clip = townAmbience;
+                music.Play(); break;
+            case "Ending":
+                music.clip = interior;
+                music.Play(); break;
         }
     }
 }

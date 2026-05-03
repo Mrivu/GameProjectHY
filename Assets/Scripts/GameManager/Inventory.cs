@@ -49,6 +49,11 @@ public class Inventory : MonoBehaviour
             {
                 InteractExceptions.Instance.pickedUpGourd = true;
             }
+
+            if (name == "Bell")
+            {
+                InteractExceptions.Instance.pickedUpKaguraSuzu = true;
+            }
         }
     }
 

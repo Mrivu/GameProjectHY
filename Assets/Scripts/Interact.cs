@@ -54,7 +54,23 @@ public class Interact : MonoBehaviour, IPointerClickHandler
             // Talking to Toyotomi more than once
             else if (conversations[conversationIndex % conversations.Count] == 23 && InteractExceptions.Instance.talkedToyotomi == true)
             {
-                dialogueSystem.StartDialogueAnimation(true, 26);
+                if (InteractExceptions.Instance.pickedUpKaguraSuzu)
+                {
+                    if (InteractExceptions.Instance.talkedToyotomiAgain || InteractExceptions.Instance.talkedMiko)
+                    {
+                        dialogueSystem.StartDialogueAnimation(true, 33);
+                    }
+                    else
+                    {
+                       InteractExceptions.Instance.talkedToyotomiAgain = true;
+                       dialogueSystem.StartDialogueAnimation(true, 31);
+                    }
+
+                }
+                else
+                {
+                    dialogueSystem.StartDialogueAnimation(true, 26);
+                }
             }
 
             // Interacting with the entrance to the 3rd before Hideyoshi has been talked to
@@ -63,7 +79,7 @@ public class Interact : MonoBehaviour, IPointerClickHandler
                 dialogueSystem.StartDialogueAnimation(true, 22);
             }
 
-            // Interacting with the sign post in order to go to the shrine after picking up the Kagura suzu in Scene 3
+            // Interacting with the path forward or the house door before talking to Toyotomi
             else if (conversations[conversationIndex % conversations.Count] == 32 && InteractExceptions.Instance.talkedToyotomi == false)
             {
                 dialogueSystem.StartDialogueAnimation(true, 22);
@@ -87,6 +103,19 @@ public class Interact : MonoBehaviour, IPointerClickHandler
                 dialogueSystem.StartDialogueAnimation(true, 56);
             }
 
+            // Talking to the Miko again
+            else if (conversations[conversationIndex % conversations.Count] == 72 && InteractExceptions.Instance.talkedMiko == true)
+            {
+                dialogueSystem.StartDialogueAnimation(true, 75);
+            }
+
+            // Heading back from the shrine before talking to the Miko
+            else if (conversations[conversationIndex % conversations.Count] == 76 && InteractExceptions.Instance.talkedMiko == false)
+            {
+                dialogueSystem.StartDialogueAnimation(true, 77);
+            }
+
+            // No exceptions
             else
             {
                 dialogueSystem.StartDialogueAnimation(true, conversations[conversationIndex % conversations.Count]);

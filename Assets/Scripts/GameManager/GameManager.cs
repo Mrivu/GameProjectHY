@@ -72,11 +72,15 @@ public class GameManager : MonoBehaviour
         {
             dialogueSystem = GameObject.Find("DialogueSystem").GetComponent<DialogueSystem>();
 
-            if (dialogueSystem != null)
+            if (dialogueSystem != null && InteractExceptions.Instance.firstTimeHouseOutside)
             {
                 // Dialogue at the start of the game
                 dialogueSystem.gameObject.SetActive(true);
                 dialogueSystem.StartDialogueAnimation(true, 0);
+            }
+            else
+            {
+                dialogueSystem.gameObject.SetActive(false);
             }
         }
 
@@ -110,6 +114,29 @@ public class GameManager : MonoBehaviour
             {
                 dialogueSystem.gameObject.SetActive(false);
             }
+        }
+
+        if (scene.name == "Shrine")
+        {
+            dialogueSystem = GameObject.Find("DialogueSystem").GetComponent<DialogueSystem>();
+
+            if (dialogueSystem != null && InteractExceptions.Instance.firstTimeShrine)
+            {
+                // Dialogue at the start of the game
+                dialogueSystem.gameObject.SetActive(true);
+                dialogueSystem.StartDialogueAnimation(true, 71);
+            }
+            else
+            {
+                dialogueSystem.gameObject.SetActive(false);
+            }
+        }
+
+        if (scene.name == "Ending")
+        {
+            dialogueSystem = GameObject.Find("DialogueSystem").GetComponent<DialogueSystem>();
+
+            dialogueSystem.gameObject.SetActive(false);
         }
 
 

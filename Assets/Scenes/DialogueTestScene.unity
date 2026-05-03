@@ -1687,8 +1687,11 @@ MonoBehaviour:
   BGDim: {fileID: 112638429}
   DimIntensity: 190
   AnimationTime: 0.2
+  charactersInScene: []
+  font: {fileID: 0}
   textField: {fileID: 1058888588}
   scrollSpeed: 1.5
+  guideText: {fileID: 0}
   choices:
   - {fileID: 1723543518}
   - {fileID: 1353342956}
@@ -1739,8 +1742,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc12bccddf3dd24193140358835495f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractExceptions
+  endingPoints: 0
   pickedUpGourd: 0
   talkedToyotomi: 0
+  pickedUpKaguraSuzu: 0
+  talkedRogue: 0
+  talkedMiko: 0
+  talkedToyotomiAgain: 0
+  firstTimeHouseInterior: 1
+  firstTimeHouseOutside: 1
+  firstTimeAbandonedHouse: 1
+  firstTimeShrine: 1
 --- !u!114 &1259465281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1762,6 +1774,24 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  pause:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6ab49fe1-4002-44e1-9ddd-918f46bb7097
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  clue:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7aacc3ce-fbeb-4315-9472-b89ef3fa9aec
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &1259465282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1774,8 +1804,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6fad829f5dbef48a47fb88cd2a7ec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  pauseManager: {fileID: 0}
   dialogueSystem: {fileID: 1125048386}
   inventory: {fileID: 1259465279}
+  audioManager: {fileID: 0}
+  settings: {fileID: 0}
+  gameCanvas: {fileID: 0}
+  videoPlayer: {fileID: 0}
+  introCutscene: {fileID: 0}
 --- !u!4 &1259465283
 Transform:
   m_ObjectHideFlags: 0
@@ -2661,9 +2697,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7437f6ca72a2cd64f82ec790dc54b520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  conversations: 02000000
+  conversations: 07000000
   conversationIndex: 0
   oneTime: 0
+  clueParticle: {fileID: 0}
 --- !u!1 &1887503388
 GameObject:
   m_ObjectHideFlags: 0
