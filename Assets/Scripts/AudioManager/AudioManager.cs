@@ -53,7 +53,7 @@ public class AudioManager : MonoBehaviour
                 music.clip = townAmbience;
                 music.Play(); break;
             case "Shrine":
-                music.clip = interior;
+                music.clip = mainmenuMusic;
                 music.Play(); break;
             case "Ending":
                 music.clip = interior;

@@ -10,7 +10,7 @@ public class Settings : MonoBehaviour
 
     public int selectedResolution = 1;
     public List<Tuple<int, int>> resolutions = new List<Tuple<int, int>>() { 
-        new (1280, 720), new(1920, 1080), new(2560, 1440) , new(3840, 2160) };
+        new (1280, 720), new(1920, 1080), new(2560, 1440)};
 
     public float volume = 100.0f;
 
